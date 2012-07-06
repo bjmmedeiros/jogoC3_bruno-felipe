@@ -50,7 +50,7 @@ private:
     QGraphicsScene *scene;
     QGraphicsRectItem *player;
     wall border;
-    Map m;
+    Map *m;
 
     QPen blackpen;
     QBrush redbrush;

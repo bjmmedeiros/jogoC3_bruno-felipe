@@ -15,9 +15,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->scenario->hide();
     ui->console->hide();
 
-
-
-
     scene = new QGraphicsScene(this);
     ui->scenario->setScene(scene);
 
@@ -32,7 +29,8 @@ MainWindow::MainWindow(QWidget *parent) :
     border.left = scene->addLine(0,0,0,500,blackpen);
     border.right = scene->addLine(500,0,500,500,blackpen);
 
-    m.file = new QFile("maps/test.map");
+    m =new Map("maps/test.map");
+    m->scanMap();
 }
 
 MainWindow::~MainWindow()
@@ -42,7 +40,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionNew_Game_triggered()
 {
-    this->drawMap(m.mapBuffer);
+    this->drawMap(m->mapBuffer);
     ui->scenario->show();
 }
 
@@ -112,7 +110,8 @@ void MainWindow::drawMap(std::vector< std::vector<Block*> > &v)
     {
         for(int j=0; j<10; j++)
         {
-            if(v[i][j] == 0)
+            Block *b = v[i][j];
+            if(b->type == Block::brick)
             {
                 scene->addRect(i*50, j*50, 50, 50, blackpen, redbrush);
             }

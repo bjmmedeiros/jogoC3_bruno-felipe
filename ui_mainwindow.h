@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Sun Jul 1 17:15:24 2012
+** Created: Fri Jul 6 13:15:16 2012
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -29,9 +29,11 @@ class Ui_MainWindow
 public:
     QAction *actionNew_Game;
     QAction *actionMap_Editor;
+    QAction *actionTest;
     QWidget *centralWidget;
     QLabel *gameName;
     QGraphicsView *scenario;
+    QLabel *console;
     QMenuBar *menuBar;
     QMenu *menuPlay;
 
@@ -44,11 +46,13 @@ public:
         actionNew_Game->setObjectName(QString::fromUtf8("actionNew_Game"));
         actionMap_Editor = new QAction(MainWindow);
         actionMap_Editor->setObjectName(QString::fromUtf8("actionMap_Editor"));
+        actionTest = new QAction(MainWindow);
+        actionTest->setObjectName(QString::fromUtf8("actionTest"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         gameName = new QLabel(centralWidget);
         gameName->setObjectName(QString::fromUtf8("gameName"));
-        gameName->setGeometry(QRect(0, 0, 500, 500));
+        gameName->setGeometry(QRect(10, 10, 600, 600));
         QFont font;
         font.setPointSize(32);
         font.setBold(true);
@@ -64,10 +68,13 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(scenario->sizePolicy().hasHeightForWidth());
         scenario->setSizePolicy(sizePolicy);
+        console = new QLabel(centralWidget);
+        console->setObjectName(QString::fromUtf8("console"));
+        console->setGeometry(QRect(90, 60, 251, 181));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 620, 35));
+        menuBar->setGeometry(QRect(0, 0, 620, 31));
         menuPlay = new QMenu(menuBar);
         menuPlay->setObjectName(QString::fromUtf8("menuPlay"));
         MainWindow->setMenuBar(menuBar);
@@ -75,6 +82,7 @@ public:
         menuBar->addAction(menuPlay->menuAction());
         menuPlay->addAction(actionNew_Game);
         menuPlay->addAction(actionMap_Editor);
+        menuPlay->addAction(actionTest);
 
         retranslateUi(MainWindow);
 
@@ -86,7 +94,9 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0, QApplication::UnicodeUTF8));
         actionNew_Game->setText(QApplication::translate("MainWindow", "New Game", 0, QApplication::UnicodeUTF8));
         actionMap_Editor->setText(QApplication::translate("MainWindow", "Map Editor", 0, QApplication::UnicodeUTF8));
+        actionTest->setText(QApplication::translate("MainWindow", "Test", 0, QApplication::UnicodeUTF8));
         gameName->setText(QApplication::translate("MainWindow", "Sokoban", 0, QApplication::UnicodeUTF8));
+        console->setText(QApplication::translate("MainWindow", "TextLabel", 0, QApplication::UnicodeUTF8));
         menuPlay->setTitle(QApplication::translate("MainWindow", "Game", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
