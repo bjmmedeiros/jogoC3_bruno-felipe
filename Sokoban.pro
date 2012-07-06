@@ -13,10 +13,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     block.cpp \
-    map.cpp
+    map.cpp \
+    scenegrid.cpp
 
 HEADERS  += mainwindow.h \
     block.h \
-    map.h
+    map.h \
+    scenegrid.h
 
 FORMS    += mainwindow.ui
