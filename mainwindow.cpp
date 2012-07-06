@@ -114,6 +114,26 @@ void MainWindow::drawMap()
             {
                 m->mapBuffer[i][j]->square = scene->addRect(i*50,j*50,50,50,blackpen,redbrush);
             }
+
+            if(m->mapBuffer[i][j]->type == Block::box)
+            {
+                m->mapBuffer[i][j]->square = scene->addRect(i*50,j*50,50,50,blackpen,redbrush);
+            }
+
+            if(m->mapBuffer[i][j]->type == Block::spot)
+            {
+                m->mapBuffer[i][j]->square = scene->addRect(i*50,j*50,50,50,blackpen,redbrush);
+            }
+
+            if(m->mapBuffer[i][j]->type == Block::floor)
+            {
+                m->mapBuffer[i][j]->square = scene->addRect(i*50,j*50,50,50,blackpen,redbrush);
+            }
+
+            if(m->mapBuffer[i][j]->type == Block::)
+            {
+                m->mapBuffer[i][j]->square = scene->addRect(i*50,j*50,50,50,blackpen,redbrush);
+            }
         }
     }
 }
