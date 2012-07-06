@@ -4,9 +4,6 @@
 #include <QObject>
 #include <QGraphicsRectItem>
 
-#define BLOCK_HEIGHT 50
-#define BLOCK_WIDTH 50
-
 class Block
 {
 public:
@@ -22,6 +19,11 @@ public slots:
 private:
 
 public:
+    enum dimension {
+        BLOCK_HEIGHT=50,
+        BLOCK_WIDTH=50
+    };
+
     bool movable;
     QGraphicsRectItem *square;
     int type;

@@ -53,7 +53,10 @@ private:
     Map *m;
 
     QPen blackpen;
-    QBrush redbrush;
+    QBrush boxbrush;
+    QBrush brickbrush;
+    QBrush spotbrush;
+    QBrush floorbrush;
 
 private:
     bool collided(QGraphicsItem *item1, QGraphicsItem *item2)
@@ -66,6 +69,7 @@ private:
     }
 
     void drawMap();
+    bool walk(int direction);
 
 protected:
     void keyPressEvent(QKeyEvent *k);
