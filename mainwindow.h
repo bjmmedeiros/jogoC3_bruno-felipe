@@ -65,7 +65,7 @@ private:
         return false;
     }
 
-    void drawMap(std::vector< std::vector<Block*> > &v);
+    void drawMap();
 
 protected:
     void keyPressEvent(QKeyEvent *k);

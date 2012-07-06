@@ -20,10 +20,10 @@ signals:
 public slots:
 
 private:
-    bool movable;
-    QGraphicsRectItem *square;
 
 public:
+    bool movable;
+    QGraphicsRectItem *square;
     int type;
     enum types
     {

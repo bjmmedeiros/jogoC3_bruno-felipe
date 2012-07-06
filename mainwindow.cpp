@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     redbrush.setColor(Qt::red);
     redbrush.setStyle(Qt::SolidPattern);
 
-    //player = scene->addRect(20,20,50,50,blackpen,redbrush);
+    player = scene->addRect(100,100,50,50,blackpen,redbrush);
 
     border.top = scene->addLine(0,0,500,0,blackpen);
     border.bottom = scene->addLine(0,500,500,500,blackpen);
@@ -40,7 +40,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionNew_Game_triggered()
 {
-    this->drawMap(m->mapBuffer);
+    this->drawMap();
     ui->scenario->show();
 }
 
@@ -104,16 +104,15 @@ void MainWindow::on_actionTest_triggered()
     ui->console->show();
 }
 
-void MainWindow::drawMap(std::vector< std::vector<Block*> > &v)
+void MainWindow::drawMap()
 {
     for(int i=0; i<10; i++)
     {
         for(int j=0; j<10; j++)
         {
-            Block *b = v[i][j];
-            if(b->type == Block::brick)
+            if(m->mapBuffer[i][j]->type == Block::brick)
             {
-                scene->addRect(i*50, j*50, 50, 50, blackpen, redbrush);
+                m->mapBuffer[i][j]->square = scene->addRect(i*50,j*50,50,50,blackpen,redbrush);
             }
         }
     }
