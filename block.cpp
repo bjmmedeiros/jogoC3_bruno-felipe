@@ -1,13 +1,40 @@
 #include "block.h"
 
-Block::Block(QObject *parent) :
-    QObject(parent)
+Block::Block()
 {
-    QImage *image = new QImage();
 
-    if (movable) {
-        image->load("images/wall.png");
-    } else {
-        image->load("images/box.png");
+}
+
+Block::Block(int t)
+{
+    switch (t)
+    {
+    case floor:
+        type = floor;
+        square = NULL;
+        movable = false;
+        break;
+    case brick:
+        type = brick;
+        square = new QGraphicsRectItem(0,0,BLOCK_WIDTH,BLOCK_HEIGHT);
+        movable = false;
+        break;
+    case box:
+        type = box;
+        square = new QGraphicsRectItem(0,0,BLOCK_WIDTH,BLOCK_HEIGHT);
+        movable =true;
+        break;
+    case spot:
+        type = spot;
+        square = new QGraphicsRectItem(0,0,BLOCK_WIDTH,BLOCK_HEIGHT);
+        movable =false;
+        break;
+    default:
+        break;
     }
+}
+
+void Block::setMovable(bool set)
+{
+    movable = set;
 }

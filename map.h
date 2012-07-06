@@ -1,15 +1,28 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include <QGraphicsScene>
-#include <QVector>
+#include <QFile>
+#include <vector>
 
-class map
+#include "block.h"
+
+class Map
 {
 public:
-    map();
+    Map();
+    Map(QString path);
+    ~Map();
+
 private:
-    QRect background;
+
+
+public:
+    QFile *file;
+    std::vector< std::vector<Block*> > mapBuffer;
+
+public:
+    void scanMap();
+
 };
 
 #endif // MAP_H

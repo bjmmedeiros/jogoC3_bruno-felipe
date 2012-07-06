@@ -6,6 +6,13 @@
 #include <QtCore>
 #include <QtGui>
 
+#include <QPen>
+#include <QBrush>
+#include <QColor>
+
+#include "map.h"
+#include "block.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -20,7 +27,7 @@ public:
     
 private slots:
     void on_actionNew_Game_triggered();
-
+    void on_actionTest_triggered();
 
 private:
     enum keys {
@@ -41,8 +48,12 @@ private:
     Ui::MainWindow *ui;
 
     QGraphicsScene *scene;
-    QGraphicsRectItem *rectangle;
+    QGraphicsRectItem *player;
     wall border;
+    Map m;
+
+    QPen blackpen;
+    QBrush redbrush;
 
 private:
     bool collided(QGraphicsItem *item1, QGraphicsItem *item2)
@@ -51,8 +62,10 @@ private:
         {
             return true;
         }
-        else return false;
+        return false;
     }
+
+    void drawMap(std::vector< std::vector<Block*> > &v);
 
 protected:
     void keyPressEvent(QKeyEvent *k);

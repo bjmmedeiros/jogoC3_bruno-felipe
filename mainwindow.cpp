@@ -4,7 +4,7 @@
 #include <QDebug>
 #include <QRect>
 
-#include "map.h"
+//#include "map.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,20 +13,26 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     ui->scenario->hide();
+    ui->console->hide();
+
+
+
+
     scene = new QGraphicsScene(this);
     ui->scenario->setScene(scene);
 
-    QPen blackpen(Qt::black);
-    blackpen.setWidth(1);
-    QBrush redbrush(Qt::red);
+    blackpen.setColor(Qt::black);
+    redbrush.setColor(Qt::red);
+    redbrush.setStyle(Qt::SolidPattern);
 
-    rectangle = scene->addRect(20,20,50,50,blackpen,redbrush);
+    //player = scene->addRect(20,20,50,50,blackpen,redbrush);
 
     border.top = scene->addLine(0,0,500,0,blackpen);
     border.bottom = scene->addLine(0,500,500,500,blackpen);
     border.left = scene->addLine(0,0,0,500,blackpen);
     border.right = scene->addLine(500,0,500,500,blackpen);
 
+    m.file = new QFile("maps/test.map");
 }
 
 MainWindow::~MainWindow()
@@ -36,6 +42,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionNew_Game_triggered()
 {
+    this->drawMap(m.mapBuffer);
     ui->scenario->show();
 }
 
@@ -43,44 +50,72 @@ void MainWindow::keyPressEvent(QKeyEvent *k)
 {
     switch(k->nativeVirtualKey()) {
         case key_left:
-            rectangle->setX(rectangle->x()-10);
+            player->setX(player->x()-10);
 
-            if(collided(rectangle,border.left))
+            if(collided(player,border.left))
             {
                 qDebug() << "colidiu";
-                rectangle->setX(rectangle->x()+10);
+                player->setX(player->x()+10);
             }
             break;
         case key_right:
-            rectangle->setX(rectangle->x()+10);
+            player->setX(player->x()+10);
 
-            if(collided(rectangle,border.right))
+            if(collided(player,border.right))
             {
                 qDebug() << "colidiu";
-                rectangle->setX(rectangle->x()-10);
+                player->setX(player->x()-10);
             }
             break;
         case key_up:
-            rectangle->setY(rectangle->y()-10);
+            player->setY(player->y()-10);
 
-            if(collided(rectangle,border.top))
+            if(collided(player,border.top))
             {
                 qDebug() << "colidiu";
-                rectangle->setY(rectangle->y()+10);
+                player->setY(player->y()+10);
             }
             break;
         case key_down:
-            rectangle->setY(rectangle->y()+10);
+            player->setY(player->y()+10);
 
-            if(collided(rectangle,border.bottom))
+            if(collided(player,border.bottom))
             {
                 qDebug() << "colidiu";
-                rectangle->setY(rectangle->y()-10);
+                player->setY(player->y()-10);
             }
             break;
         case key_esc:
             this->close();
         default:
             break;
+    }
+}
+
+void MainWindow::on_actionTest_triggered()
+{
+    ui->gameName->hide();
+    ui->scenario->hide();
+
+    ui->console->clear();
+
+    Map *mapa = new Map(QString("maps/test.map"));
+
+    mapa->scanMap();
+
+    ui->console->show();
+}
+
+void MainWindow::drawMap(std::vector< std::vector<Block*> > &v)
+{
+    for(int i=0; i<10; i++)
+    {
+        for(int j=0; j<10; j++)
+        {
+            if(v[i][j] == 0)
+            {
+                scene->addRect(i*50, j*50, 50, 50, blackpen, redbrush);
+            }
+        }
     }
 }

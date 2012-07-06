@@ -7,23 +7,31 @@
 #define BLOCK_HEIGHT 50
 #define BLOCK_WIDTH 50
 
-class Block : public QObject
+class Block
 {
-    Q_OBJECT
 public:
-    explicit Block(QObject *parent = 0);
-    Block()
-    {
-        box = new QGraphicsRectItem(0,0,BLOCK_WIDTH,BLOCK_HEIGHT);
-    }
+    Block();
+    Block(int t);
     
+    void setMovable(bool set);
+
 signals:
     
 public slots:
 
 private:
+    int type;
     bool movable;
-    QGraphicsRectItem *box;
+    QGraphicsRectItem *square;
+
+public:
+    enum types
+    {
+        floor=0,
+        brick=1,
+        box=2,
+        spot=3
+    };
 };
 
 #endif // BLOCK_H

@@ -17,10 +17,10 @@
    <widget class="QLabel" name="gameName">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>500</width>
-      <height>500</height>
+      <x>10</x>
+      <y>10</y>
+      <width>600</width>
+      <height>600</height>
      </rect>
     </property>
     <property name="font">
@@ -56,6 +56,19 @@
      </sizepolicy>
     </property>
    </widget>
+   <widget class="QLabel" name="console">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>60</y>
+      <width>251</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -63,7 +76,7 @@
      <x>0</x>
      <y>0</y>
      <width>620</width>
-     <height>35</height>
+     <height>31</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuPlay">
@@ -72,6 +85,7 @@
     </property>
     <addaction name="actionNew_Game"/>
     <addaction name="actionMap_Editor"/>
+    <addaction name="actionTest"/>
    </widget>
    <addaction name="menuPlay"/>
   </widget>
@@ -83,6 +97,11 @@
   <action name="actionMap_Editor">
    <property name="text">
     <string>Map Editor</string>
+   </property>
+  </action>
+  <action name="actionTest">
+   <property name="text">
+    <string>Test</string>
    </property>
   </action>
  </widget>
