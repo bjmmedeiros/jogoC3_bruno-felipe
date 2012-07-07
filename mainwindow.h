@@ -69,7 +69,7 @@ private:
     }
 
     void drawMap();
-    bool walk(int direction);
+    bool walk(int direction, QGraphicsRectItem* block);
 
 protected:
     void keyPressEvent(QKeyEvent *k);

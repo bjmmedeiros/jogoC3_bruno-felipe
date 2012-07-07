@@ -3,6 +3,8 @@
 
 #include <QDebug>
 #include <QTextStream>
+#include <iostream>
+#include <ostream>
 
 Map::Map(){
 
