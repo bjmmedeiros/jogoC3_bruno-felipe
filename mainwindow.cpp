@@ -24,14 +24,14 @@ MainWindow::MainWindow(QWidget *parent) :
     brickbrush.setColor(Qt::gray); brickbrush.setStyle(Qt::SolidPattern);
     spotbrush.setColor(Qt::red); spotbrush.setStyle(Qt::SolidPattern);
     floorbrush.setColor(Qt::black); floorbrush.setStyle(Qt::SolidPattern);
+    playerbrush.setColor(Qt::green); playerbrush.setStyle(Qt::SolidPattern);
 
     border.top = scene->addLine(0,0,500,0,blackpen);
     border.bottom = scene->addLine(0,500,500,500,blackpen);
     border.left = scene->addLine(0,0,0,500,blackpen);
     border.right = scene->addLine(500,0,500,500,blackpen);
 
-    m =new Map("maps/test.map");
-    m->scanMap();
+
 }
 
 MainWindow::~MainWindow()
@@ -41,9 +41,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionNew_Game_triggered()
 {
+    m =new Map("maps/test.map");
+    m->scanMap();
     this->drawMap();
-    player = scene->addRect(0,0,50,50,blackpen,Qt::green);
-    player->setPos(100,100);
+    if ( (player = getPlayer()) == NULL )
+    {
+        qDebug() << "Map doesnt contain player.";
+        exit(EXIT_FAILURE);
+    }
     ui->scenario->show();
 }
 
@@ -102,26 +107,35 @@ void MainWindow::drawMap()
     {
         for(int j=0; j<10; j++)
         {
-            if(m->mapBuffer[i][j]->type == Block::brick)
+            if(m->mapBuffer[j][i]->type == Block::brick)
             {
-                m->mapBuffer[i][j]->square = scene->addRect(0,0,50,50,blackpen,brickbrush);
+                qDebug() << j << i << m->mapBuffer[j][i]->type;
+                m->mapBuffer[j][i]->square = scene->addRect(0,0,50,50,blackpen,brickbrush);
             }
 
-            if(m->mapBuffer[i][j]->type == Block::box)
+            else if(m->mapBuffer[j][i]->type == Block::box)
             {
-                m->mapBuffer[i][j]->square = scene->addRect(0,0,50,50,blackpen,boxbrush);
+                qDebug() << j << i << m->mapBuffer[j][i]->type;
+                m->mapBuffer[j][i]->square = scene->addRect(0,0,50,50,blackpen,boxbrush);
             }
 
-            if(m->mapBuffer[i][j]->type == Block::spot)
+            else if(m->mapBuffer[j][i]->type == Block::spot)
             {
-                m->mapBuffer[i][j]->square = scene->addRect(0,0,50,50,blackpen,spotbrush);
+                qDebug() << j << i << m->mapBuffer[j][i]->type;
+                m->mapBuffer[j][i]->square = scene->addRect(0,0,50,50,blackpen,spotbrush);
             }
 
-            if(m->mapBuffer[i][j]->type == Block::floor)
+            else if(m->mapBuffer[j][i]->type == Block::floor)
             {
-                m->mapBuffer[i][j]->square = scene->addRect(0,0,50,50,blackpen,floorbrush);
+                qDebug() << j << i << m->mapBuffer[j][i]->type;
+                m->mapBuffer[j][i]->square = scene->addRect(0,0,50,50,blackpen,floorbrush);
             }
-            m->mapBuffer[i][j]->square->setPos(i*50,j*50);
+            else if(m->mapBuffer[j][i]->type == Block::player)
+            {
+                qDebug() << j << i << m->mapBuffer[j][i]->type;
+                m->mapBuffer[j][i]->square = scene->addRect(0,0,50,50,blackpen,playerbrush);
+            }
+            m->mapBuffer[j][i]->square->setPos(j*50,i*50);
         }
     }
 }
@@ -148,6 +162,28 @@ bool MainWindow::canWalk(int direction, QGraphicsRectItem* block)
         break;
     }
 
+    switch(next->type)
+    {
+    case Block::floor:
+        qDebug() << "Pode andar.";
+        return true;
+        break;
+    case Block::spot:
+        qDebug() << "Pode andar.";
+        return true;
+        break;
+    case Block::brick:
+        qDebug() << next->type << "nao pode andar.";
+        return false;
+        break;
+    case Block::box:
+        return boxMove(direction, next);
+        break;
+    default:
+        return false;
+        break;
+    }
+    /*
     if( next->type == Block::floor )
     {
         qDebug() << "pode andar.";
@@ -159,4 +195,48 @@ bool MainWindow::canWalk(int direction, QGraphicsRectItem* block)
         qDebug() << "nao pode andar.";
         return false;
     }
+    */
+}
+
+bool MainWindow::boxMove(int direction, Block *box)
+{
+    Block* next;
+    switch(direction)
+    {
+    case key_left:
+        next = m->mapBuffer[(box->square->x()-50)/50][(box->square->y())/50];
+        break;
+    case key_right:
+        next = m->mapBuffer[(box->square->x()+50)/50][(box->square->y())/50];
+        break;
+    case key_up:
+        next = m->mapBuffer[(box->square->x())/50][(box->square->y()-50)/50];
+        break;
+    case key_down:
+        next = m->mapBuffer[(box->square->x())/50][(box->square->y()+50)/50];
+        break;
+    default:
+        break;
+    }
+
+    if (next->type == Block::floor || next->type == Block::spot)
+    {
+        return true;
+    }
+    else return false;
+}
+
+QGraphicsRectItem *MainWindow::getPlayer()
+{
+    for(int i=0; i<10; i++)
+    {
+        for(int j=0; j<10; j++)
+        {
+            if(m->mapBuffer[i][j]->type == Block::player)
+            {
+                return m->mapBuffer[i][j]->square;
+            }
+        }
+    }
+    return NULL;
 }

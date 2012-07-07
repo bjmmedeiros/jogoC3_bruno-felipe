@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'block.h'
 **
-** Created: Sun Jul 1 17:31:59 2012
+** Created: Sat Jul 7 15:20:12 2012
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!

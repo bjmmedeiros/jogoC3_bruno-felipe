@@ -4,8 +4,10 @@
 #include <QObject>
 #include <QGraphicsRectItem>
 
-class Block
+class Block : public QObject
 {
+    Q_OBJECT
+
 public:
     Block();
     Block(int t);
@@ -19,20 +21,22 @@ public slots:
 private:
 
 public:
+    QPoint coord;
+    bool movable;
+    QGraphicsRectItem *square;
+    int type;
+
     enum dimension {
         BLOCK_HEIGHT=50,
         BLOCK_WIDTH=50
     };
-
-    bool movable;
-    QGraphicsRectItem *square;
-    int type;
     enum types
     {
         floor=0,
         brick=1,
         box=2,
-        spot=3
+        spot=3,
+        player=4
     };
 };
 

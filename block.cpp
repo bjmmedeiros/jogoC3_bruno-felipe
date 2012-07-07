@@ -25,6 +25,10 @@ Block::Block(int t)
         type = spot;
         movable =false;
         break;
+    case player:
+        type = player;
+        movable =false;
+        break;
     default:
         break;
     }
