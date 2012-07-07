@@ -22,6 +22,7 @@ public:
 
 public:
     void scanMap();
+    void testScan();
 
 };
 

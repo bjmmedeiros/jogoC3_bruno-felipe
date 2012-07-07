@@ -57,19 +57,13 @@ private:
     QBrush brickbrush;
     QBrush spotbrush;
     QBrush floorbrush;
+    QBrush playerbrush;
 
 private:
-    bool collided(QGraphicsItem *item1, QGraphicsItem *item2)
-    {
-        if(item1->collidesWithItem(item2))
-        {
-            return true;
-        }
-        return false;
-    }
-
     void drawMap();
-    bool walk(int direction, QGraphicsRectItem* block);
+    bool canWalk(int direction, QGraphicsRectItem* block);
+    bool boxMove(int direction, Block* box);
+    QGraphicsRectItem * getPlayer();
 
 protected:
     void keyPressEvent(QKeyEvent *k);
