@@ -57,10 +57,13 @@ private:
     QBrush brickbrush;
     QBrush spotbrush;
     QBrush floorbrush;
-    QBrush playerbrush;
+    QBrush gamerbrush;
 
 private:
     void drawMap();
+    void drawSpots();
+    void drawBoxes();
+    void drawGamer();
     bool canWalk(int direction, Block* block);
     bool boxMove(int direction, Block* box);
     Block * getPlayer();

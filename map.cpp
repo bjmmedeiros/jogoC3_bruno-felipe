@@ -111,18 +111,6 @@ void Map::scanMap()
     bl = new Block(Block::player);
     bl->setCoord(p);
     gamer = bl;
-
-    for (int i=0; i<10; i++)
-    {
-        qDebug() << mapBuffer[i][0]->type << mapBuffer[i][1]->type << mapBuffer[i][2]->type << mapBuffer[i][3]->type << mapBuffer[i][4]->type << mapBuffer[i][5]->type << mapBuffer[i][6]->type << mapBuffer[i][7]->type << mapBuffer[i][8]->type << mapBuffer[i][9]->type;
-    }
-
-    for (int i=0; i<2; i++)
-    {
-        qDebug() << boxBuffer[i]->coord.x() << boxBuffer[i]->coord.y();
-    }
-    qDebug() << spotBuffer[0]->coord.x() << spotBuffer[0]->coord.y();
-    qDebug() << gamer->coord.x() << gamer->coord.y();
 }
 
 void Map::testScan()

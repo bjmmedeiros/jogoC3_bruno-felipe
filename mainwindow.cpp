@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     brickbrush.setColor(Qt::gray); brickbrush.setStyle(Qt::SolidPattern);
     spotbrush.setColor(Qt::red); spotbrush.setStyle(Qt::SolidPattern);
     floorbrush.setColor(Qt::black); floorbrush.setStyle(Qt::SolidPattern);
-    playerbrush.setColor(Qt::green); playerbrush.setStyle(Qt::SolidPattern);
+    gamerbrush.setColor(Qt::green); gamerbrush.setStyle(Qt::SolidPattern);
 
     border.top = scene->addLine(0,0,500,0,blackpen);
     border.bottom = scene->addLine(0,500,500,500,blackpen);
@@ -44,11 +44,10 @@ void MainWindow::on_actionNew_Game_triggered()
     m =new Map("maps/test.map");
     m->scanMap();
     this->drawMap();
-    if ( (player = getPlayer()) == NULL )
-    {
-        qDebug() << "Map has no player.";
-        exit(EXIT_FAILURE);
-    }
+    this->drawSpots();
+    this->drawBoxes();
+    this->drawGamer();
+
     ui->scenario->show();
 }
 
@@ -110,35 +109,41 @@ void MainWindow::drawMap()
         {
             if(m->mapBuffer[j][i]->type == Block::brick)
             {
-                qDebug() << j << i << m->mapBuffer[j][i]->type;
                 m->mapBuffer[j][i]->square = scene->addRect(0,0,50,50,blackpen,brickbrush);
-            }
-
-            else if(m->mapBuffer[j][i]->type == Block::box)
-            {
-                qDebug() << j << i << m->mapBuffer[j][i]->type;
-                m->mapBuffer[j][i]->square = scene->addRect(0,0,50,50,blackpen,boxbrush);
-            }
-
-            else if(m->mapBuffer[j][i]->type == Block::spot)
-            {
-                qDebug() << j << i << m->mapBuffer[j][i]->type;
-                m->mapBuffer[j][i]->square = scene->addRect(0,0,50,50,blackpen,spotbrush);
             }
 
             else if(m->mapBuffer[j][i]->type == Block::floor)
             {
-                qDebug() << j << i << m->mapBuffer[j][i]->type;
                 m->mapBuffer[j][i]->square = scene->addRect(0,0,50,50,blackpen,floorbrush);
             }
-            else if(m->mapBuffer[j][i]->type == Block::player)
-            {
-                qDebug() << j << i << m->mapBuffer[j][i]->type;
-                m->mapBuffer[j][i]->square = scene->addRect(0,0,50,50,blackpen,playerbrush);
-            }
+
             m->mapBuffer[j][i]->square->setPos(j*50,i*50);
         }
     }
+}
+
+void MainWindow::drawSpots()
+{
+    for (int i=0; i < (int)m->spotBuffer.size(); i++)
+    {
+        m->spotBuffer.at(i)->square = scene->addRect(0,0,50,50,blackpen,spotbrush);
+        m->spotBuffer.at(i)->square->setPos( m->spotBuffer.at(i)->coord.x()*50, m->spotBuffer.at(i)->coord.y()*50 );
+    }
+}
+
+void MainWindow::drawBoxes()
+{
+    for (int i=0; i < (int)m->boxBuffer.size(); i++)
+    {
+        m->boxBuffer.at(i)->square = scene->addRect(0,0,50,50,blackpen,boxbrush);
+        m->boxBuffer.at(i)->square->setPos( m->boxBuffer.at(i)->coord.x()*50, m->boxBuffer.at(i)->coord.y()*50 );
+    }
+}
+
+void MainWindow::drawGamer()
+{
+    m->gamer->square = scene->addRect(0,0,50,50,blackpen,gamerbrush);
+    m->gamer->square->setPos(m->gamer->coord.x()*50, m->gamer->coord.y()*50);
 }
 
 bool MainWindow::canWalk(int direction, Block *block)
