@@ -57,6 +57,7 @@ void Map::scanMap()
             {
                 mapBuffer[j].push_back(new Block(Block::brick));
             }
+            mapBuffer[j][i]->setCoord(j, i);
         }
     }
     data = stream.readLine();

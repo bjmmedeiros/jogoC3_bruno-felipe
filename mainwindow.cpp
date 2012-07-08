@@ -57,8 +57,11 @@ void MainWindow::keyPressEvent(QKeyEvent *k)
 {
     switch(k->nativeVirtualKey()) {
     case key_left:
-        m->gamer->coord.setX(m->gamer->coord.x()-1);
-        emit this->gamerUpdated();
+        if ( canWalk(key_left, m->gamer) )
+        {
+            m->gamer->coord.setX(m->gamer->coord.x()-1);
+            emit this->gamerUpdated();
+        }
         break;
     case key_right:
         m->gamer->coord.setX(m->gamer->coord.x()+1);
@@ -145,27 +148,33 @@ void MainWindow::drawGamer()
     m->gamer->square->setPos(m->gamer->coord.x()*50, m->gamer->coord.y()*50);
 }
 
-bool MainWindow::canWalk(int direction, Block *block)
+bool MainWindow::canWalk(int direction, Block *current)
 {
     Block *next;
 
     switch(direction)
     {
     case key_left:
-        next = m->mapBuffer[block->coord.x()-1][block->coord.y()];
+        next = m->mapBuffer[current->coord.x()-1][current->coord.y()];
         break;
     case key_right:
-        next = m->mapBuffer[block->coord.x()+1][block->coord.y()];
+        next = m->mapBuffer[current->coord.x()+1][current->coord.y()];
         break;
     case key_up:
-        next = m->mapBuffer[block->coord.x()][block->coord.y()-1];
+        next = m->mapBuffer[current->coord.x()][current->coord.y()-1];
         break;
     case key_down:
-        next = m->mapBuffer[block->coord.x()][block->coord.y()+1];
+        next = m->mapBuffer[current->coord.x()][current->coord.y()+1];
         break;
     default:
         break;
     }
+
+    if ( next->type == Block::brick )
+    {
+        return false;
+    }
+    //else, it means is floor. So we need to check the other buffers first...
 
     switch(next->type)
     {
