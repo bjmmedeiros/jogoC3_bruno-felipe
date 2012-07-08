@@ -11,7 +11,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
 
-    QObject::connect(this, SIGNAL(gamerUpdated()), this, SLOT(updateGamer()));
+    QObject::connect( this, SIGNAL(gamerUpdated()), this, SLOT(updateGamer()) );
+    QObject::connect( this, SIGNAL(boxUpdated()), this, SLOT(updateBoxes()) );
 
     ui->setupUi(this);
 
@@ -112,6 +113,15 @@ void MainWindow::updateGamer()
     m->gamer->square->setPos(m->gamer->coord.x()*50, m->gamer->coord.y()*50);
 }
 
+void MainWindow::updateBoxes()
+{
+    Box * box;
+    foreach(box, m->boxBuffer)
+    {
+        box->square->setPos(box->coord.x()*50, box->coord.y()*50);
+    }
+}
+
 void MainWindow::drawMap()
 {
     for(int i=0; i<10; i++)
@@ -190,6 +200,10 @@ bool MainWindow::canWalk(int direction, Block *current)
     {
         if( box->coord == next->coord )
         {
+            if ( canMoveBox(direction, box) )
+            {
+                return true;
+            }
             return false;
         }
     }
@@ -203,35 +217,58 @@ bool MainWindow::canWalk(int direction, Block *current)
         }
     }
 
-    return true; //its only floor.
+    return true; //its just floor.
 }
 
-bool MainWindow::boxMove(int direction, Block *box)
+bool MainWindow::canMoveBox(int direction, Box *current)
 {
     Block* next;
     switch(direction)
     {
     case key_left:
-        next = m->mapBuffer[(box->square->x()-50)/50][(box->square->y())/50];
+        next = m->mapBuffer[current->coord.x()-1][current->coord.y()];
         break;
     case key_right:
-        next = m->mapBuffer[(box->square->x()+50)/50][(box->square->y())/50];
+        next = m->mapBuffer[current->coord.x()+1][current->coord.y()];
         break;
     case key_up:
-        next = m->mapBuffer[(box->square->x())/50][(box->square->y()-50)/50];
+        next = m->mapBuffer[current->coord.x()][current->coord.y()-1];
         break;
     case key_down:
-        next = m->mapBuffer[(box->square->x())/50][(box->square->y()+50)/50];
+        next = m->mapBuffer[current->coord.x()][current->coord.y()+1];
         break;
     default:
         break;
     }
 
-    if (next->type == Block::floor || next->type == Block::spot)
+    if ( next->type == Block::brick )
     {
-        return true;
+        return false;
     }
-    else return false;
+    //else, it means is floor. So we need to check the other buffers first...
+
+    Box *box;
+    foreach (box, m->boxBuffer)
+    {
+        if( box->coord == next->coord )
+        {
+            return false;
+        }
+    }
+
+    Block *spot;
+    foreach (spot, m->spotBuffer)
+    {
+        if( spot->coord == next->coord )
+        {
+            current->setCoord(next->coord.x(), next->coord.y());
+            emit this->boxUpdated();
+            return true;
+        }
+    }
+    current->setCoord(next->coord.x(), next->coord.y());
+    emit this->boxUpdated();
+    return true; //its just floor.
 }
 
 Block *MainWindow::getPlayer()

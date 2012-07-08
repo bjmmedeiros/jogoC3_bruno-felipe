@@ -30,11 +30,13 @@ private slots:
     void on_actionNew_Game_triggered();
     void on_actionTest_triggered();
     void updateGamer();
+    void updateBoxes();
 
 public slots:
 
 signals:
     void gamerUpdated();
+    void boxUpdated();
 
 private:
     enum keys {
@@ -72,7 +74,7 @@ private:
     void drawBoxes();
     void drawGamer();
     bool canWalk(int direction, Block* block);
-    bool boxMove(int direction, Block* box);
+    bool canMoveBox(int direction, Box *current);
     Block * getPlayer();
 
 protected:
