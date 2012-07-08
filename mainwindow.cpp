@@ -64,16 +64,25 @@ void MainWindow::keyPressEvent(QKeyEvent *k)
         }
         break;
     case key_right:
-        m->gamer->coord.setX(m->gamer->coord.x()+1);
-        emit this->gamerUpdated();
+        if ( canWalk(key_right, m->gamer) )
+        {
+            m->gamer->coord.setX(m->gamer->coord.x()+1);
+            emit this->gamerUpdated();
+        }
         break;
     case key_up:
-        m->gamer->coord.setY(m->gamer->coord.y()-1);
-        emit this->gamerUpdated();
+        if ( canWalk(key_up, m->gamer) )
+        {
+            m->gamer->coord.setY(m->gamer->coord.y()-1);
+            emit this->gamerUpdated();
+        }
         break;
     case key_down:
-        m->gamer->coord.setY(m->gamer->coord.y()+1);
-        emit this->gamerUpdated();
+        if ( canWalk(key_down, m->gamer) )
+        {
+            m->gamer->coord.setY(m->gamer->coord.y()+1);
+            emit this->gamerUpdated();
+        }
         break;
     case key_esc:
         this->close();
@@ -176,32 +185,25 @@ bool MainWindow::canWalk(int direction, Block *current)
     }
     //else, it means is floor. So we need to check the other buffers first...
 
-    switch(next->type)
+    Box *box;
+    foreach (box, m->boxBuffer)
     {
-    case Block::floor:
-        /*
-        qDebug() << "Pode andar.";
-        QPoint temp = block->coord;
-        block->coord = next->coord;
-        next->coord = temp;
-        return true;
-        */
-        break;
-    case Block::spot:
-        qDebug() << "Pode andar.";
-        return true;
-        break;
-    case Block::brick:
-        qDebug() << next->type << "nao pode andar.";
-        return false;
-        break;
-    case Block::box:
-        return boxMove(direction, next);
-        break;
-    default:
-        return false;
-        break;
+        if( box->coord == next->coord )
+        {
+            return false;
+        }
     }
+
+    Block *spot;
+    foreach (spot, m->spotBuffer)
+    {
+        if( spot->coord == next->coord )
+        {
+            return true;
+        }
+    }
+
+    return true; //its only floor.
 }
 
 bool MainWindow::boxMove(int direction, Block *box)
