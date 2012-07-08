@@ -31,12 +31,14 @@ private slots:
     void on_actionTest_triggered();
     void updateGamer();
     void updateBoxes();
+    void boxOnSpot(QPoint pos);
 
 public slots:
 
 signals:
     void gamerUpdated();
     void boxUpdated();
+    void onSpot(QPoint pos);
 
 private:
     enum keys {
@@ -62,10 +64,12 @@ private:
     Map *m;
 
     QPen blackpen;
-    QBrush boxbrush;
-    QBrush brickbrush;
-    QBrush spotbrush;
+
     QBrush floorbrush;
+    QBrush brickbrush;
+    QBrush boxbrush;
+    QBrush spotbrush;
+    QBrush boxspotbrush;
     QBrush gamerbrush;
 
 private:
@@ -75,7 +79,6 @@ private:
     void drawGamer();
     bool canWalk(int direction, Block* block);
     bool canMoveBox(int direction, Box *current);
-    Block * getPlayer();
 
 protected:
     void keyPressEvent(QKeyEvent *k);

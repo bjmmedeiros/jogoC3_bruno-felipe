@@ -9,7 +9,7 @@ public:
     Box(QString material);
 public:
     QString material;
-private:
+    bool onSpot;
 private:
 };
 

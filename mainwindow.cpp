@@ -23,10 +23,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->scenario->setScene(scene);
 
     blackpen.setColor(Qt::black);
-    boxbrush.setColor(Qt::blue); boxbrush.setStyle(Qt::SolidPattern);
-    brickbrush.setColor(Qt::gray); brickbrush.setStyle(Qt::SolidPattern);
-    spotbrush.setColor(Qt::red); spotbrush.setStyle(Qt::SolidPattern);
+
     floorbrush.setColor(Qt::black); floorbrush.setStyle(Qt::SolidPattern);
+    brickbrush.setColor(Qt::gray); brickbrush.setStyle(Qt::SolidPattern);
+    boxbrush.setColor(Qt::blue); boxbrush.setStyle(Qt::SolidPattern);
+    spotbrush.setColor(Qt::red); spotbrush.setStyle(Qt::SolidPattern);
+    boxspotbrush.setColor(Qt::yellow); boxspotbrush.setStyle(Qt::SolidPattern);
     gamerbrush.setColor(Qt::green); gamerbrush.setStyle(Qt::SolidPattern);
 
     border.top = scene->addLine(0,0,500,0,blackpen);
@@ -119,6 +121,26 @@ void MainWindow::updateBoxes()
     foreach(box, m->boxBuffer)
     {
         box->square->setPos(box->coord.x()*50, box->coord.y()*50);
+        if ( box->onSpot )
+        {
+            box->square->setBrush(boxspotbrush);
+        }
+        else
+        {
+            box->square->setBrush(boxbrush);
+        }
+    }
+}
+
+void MainWindow::boxOnSpot(QPoint pos)
+{
+    Box *box;
+    foreach(box, m->boxBuffer)
+    {
+        if ( box->coord == pos )
+        {
+            box->square->setBrush(boxspotbrush);
+        }
     }
 }
 
@@ -262,26 +284,13 @@ bool MainWindow::canMoveBox(int direction, Box *current)
         if( spot->coord == next->coord )
         {
             current->setCoord(next->coord.x(), next->coord.y());
+            current->onSpot = true;
             emit this->boxUpdated();
             return true;
         }
     }
+    current->onSpot = false;
     current->setCoord(next->coord.x(), next->coord.y());
     emit this->boxUpdated();
     return true; //its just floor.
-}
-
-Block *MainWindow::getPlayer()
-{
-    for(int i=0; i<10; i++)
-    {
-        for(int j=0; j<10; j++)
-        {
-            if(m->mapBuffer[i][j]->type == Block::player)
-            {
-                return m->mapBuffer[i][j];
-            }
-        }
-    }
-    return NULL;
 }
