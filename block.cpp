@@ -38,3 +38,14 @@ void Block::setMovable(bool set)
 {
     movable = set;
 }
+
+void Block::setCoord(QPoint p)
+{
+    this->coord = p;
+}
+
+void Block::setCoord(int x, int y)
+{
+    this->coord.setX(x);
+    this->coord.setY(y);
+}

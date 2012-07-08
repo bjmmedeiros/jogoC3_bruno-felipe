@@ -48,7 +48,7 @@ private:
     Ui::MainWindow *ui;
 
     QGraphicsScene *scene;
-    QGraphicsRectItem *player;
+    Block *player;
     wall border;
     Map *m;
 
@@ -61,9 +61,9 @@ private:
 
 private:
     void drawMap();
-    bool canWalk(int direction, QGraphicsRectItem* block);
+    bool canWalk(int direction, Block* block);
     bool boxMove(int direction, Block* box);
-    QGraphicsRectItem * getPlayer();
+    Block * getPlayer();
 
 protected:
     void keyPressEvent(QKeyEvent *k);

@@ -13,6 +13,8 @@ public:
     Block(int t);
     
     void setMovable(bool set);
+    void setCoord(QPoint p);
+    void setCoord(int x, int y);
 
 signals:
     

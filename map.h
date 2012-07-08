@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "block.h"
+#include "box.h"
 
 class Map
 {
@@ -19,6 +20,9 @@ private:
 public:
     QFile *file;
     std::vector< std::vector<Block*> > mapBuffer;
+    std::vector< Box*> boxBuffer;
+    std::vector< Block*> spotBuffer;
+    Block* gamer;
 
 public:
     void scanMap();

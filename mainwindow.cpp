@@ -46,14 +46,14 @@ void MainWindow::on_actionNew_Game_triggered()
     this->drawMap();
     if ( (player = getPlayer()) == NULL )
     {
-        qDebug() << "Map doesnt contain player.";
+        qDebug() << "Map has no player.";
         exit(EXIT_FAILURE);
     }
     ui->scenario->show();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *k)
-{
+{/*
     switch(k->nativeVirtualKey()) {
     case key_left:
         if( canWalk(key_left, player) == true )
@@ -87,11 +87,12 @@ void MainWindow::keyPressEvent(QKeyEvent *k)
         break;
     default:
         break;
-    }
+    }*/
 }
 
 void MainWindow::on_actionTest_triggered()
 {
+    m =new Map("maps/test.map");
     m->testScan();
     /*
     for ( int i=0; i<10; i++ )
@@ -140,23 +141,23 @@ void MainWindow::drawMap()
     }
 }
 
-bool MainWindow::canWalk(int direction, QGraphicsRectItem* block)
+bool MainWindow::canWalk(int direction, Block *block)
 {
     Block *next;
 
     switch(direction)
     {
     case key_left:
-        next = m->mapBuffer[(block->x()-50)/50][(block->y())/50];
+        next = m->mapBuffer[block->coord.x()-1][block->coord.y()];
         break;
     case key_right:
-        next = m->mapBuffer[(block->x()+50)/50][(block->y())/50];
+        next = m->mapBuffer[block->coord.x()+1][block->coord.y()];
         break;
     case key_up:
-        next = m->mapBuffer[(block->x())/50][(block->y()-50)/50];
+        next = m->mapBuffer[block->coord.x()][block->coord.y()-1];
         break;
     case key_down:
-        next = m->mapBuffer[(block->x())/50][(block->y()+50)/50];
+        next = m->mapBuffer[block->coord.x()][block->coord.y()+1];
         break;
     default:
         break;
@@ -165,8 +166,13 @@ bool MainWindow::canWalk(int direction, QGraphicsRectItem* block)
     switch(next->type)
     {
     case Block::floor:
+        /*
         qDebug() << "Pode andar.";
+        QPoint temp = block->coord;
+        block->coord = next->coord;
+        next->coord = temp;
         return true;
+        */
         break;
     case Block::spot:
         qDebug() << "Pode andar.";
@@ -183,19 +189,6 @@ bool MainWindow::canWalk(int direction, QGraphicsRectItem* block)
         return false;
         break;
     }
-    /*
-    if( next->type == Block::floor )
-    {
-        qDebug() << "pode andar.";
-        return true;
-    }
-    else
-    {
-        qDebug() << next->type;
-        qDebug() << "nao pode andar.";
-        return false;
-    }
-    */
 }
 
 bool MainWindow::boxMove(int direction, Block *box)
@@ -226,7 +219,7 @@ bool MainWindow::boxMove(int direction, Block *box)
     else return false;
 }
 
-QGraphicsRectItem *MainWindow::getPlayer()
+Block *MainWindow::getPlayer()
 {
     for(int i=0; i<10; i++)
     {
@@ -234,7 +227,7 @@ QGraphicsRectItem *MainWindow::getPlayer()
         {
             if(m->mapBuffer[i][j]->type == Block::player)
             {
-                return m->mapBuffer[i][j]->square;
+                return m->mapBuffer[i][j];
             }
         }
     }
