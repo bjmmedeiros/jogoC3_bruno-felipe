@@ -5,12 +5,14 @@
 #include <QRect>
 #include <iostream>
 
-//#include "map.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+
+    QObject::connect(this, SIGNAL(gamerUpdated()), this, SLOT(updateGamer()));
+
     ui->setupUi(this);
 
     ui->scenario->hide();
@@ -52,41 +54,33 @@ void MainWindow::on_actionNew_Game_triggered()
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *k)
-{/*
+{
     switch(k->nativeVirtualKey()) {
     case key_left:
-        if( canWalk(key_left, player) == true )
-        {
-            player->setX(player->x()-Block::BLOCK_WIDTH);
-        }
+        m->gamer->coord.setX(m->gamer->coord.x()-1);
+        emit this->gamerUpdated();
         break;
     case key_right:
-        if( canWalk(key_right, player) == true )
-        {
-            player->setX(player->x()+Block::BLOCK_WIDTH);
-        }
+        m->gamer->coord.setX(m->gamer->coord.x()+1);
+        emit this->gamerUpdated();
         break;
     case key_up:
-        if( canWalk(key_up, player) == true )
-        {
-            player->setY(player->y()-Block::BLOCK_HEIGHT);
-        }
+        m->gamer->coord.setY(m->gamer->coord.y()-1);
+        emit this->gamerUpdated();
         break;
     case key_down:
-        if( canWalk(key_down, player) == true )
-        {
-            player->setY(player->y()+Block::BLOCK_HEIGHT);
-        }
+        m->gamer->coord.setY(m->gamer->coord.y()+1);
+        emit this->gamerUpdated();
         break;
     case key_esc:
         this->close();
         break;
     case key_enter:
-        qDebug() << player->x() << player->y();
+        qDebug() << m->gamer->coord.x() << m->gamer->coord.y();
         break;
     default:
         break;
-    }*/
+    }
 }
 
 void MainWindow::on_actionTest_triggered()
@@ -99,6 +93,11 @@ void MainWindow::on_actionTest_triggered()
         qDebug() << m->mapBuffer[i][0]->type << m->mapBuffer[i][1]->type << m->mapBuffer[i][2]->type << m->mapBuffer[i][3]->type << m->mapBuffer[i][4]->type << m->mapBuffer[i][5]->type << m->mapBuffer[i][6]->type << m->mapBuffer[i][7]->type << m->mapBuffer[i][8]->type << m->mapBuffer[i][9]->type;
     }
     */
+}
+
+void MainWindow::updateGamer()
+{
+    m->gamer->square->setPos(m->gamer->coord.x()*50, m->gamer->coord.y()*50);
 }
 
 void MainWindow::drawMap()

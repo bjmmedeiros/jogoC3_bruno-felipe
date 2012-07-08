@@ -7,8 +7,9 @@
 #include "block.h"
 #include "box.h"
 
-class Map
+class Map: public QObject
 {
+    Q_OBJECT
 public:
     Map();
     Map(QString path);
@@ -28,6 +29,7 @@ public:
     void scanMap();
     void testScan();
 
+signals:
 };
 
 #endif // MAP_H

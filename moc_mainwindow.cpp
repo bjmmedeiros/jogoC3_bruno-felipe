@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Sun Jul 8 00:27:55 2012
+** Created: Sun Jul 8 01:20:08 2012
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,23 +23,28 @@ static const uint qt_meta_data_MainWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       1,       // signalCount
+
+ // signals: signature, parameters, type, tag, flags
+      12,   11,   11,   11, 0x05,
 
  // slots: signature, parameters, type, tag, flags
-      12,   11,   11,   11, 0x08,
-      42,   11,   11,   11, 0x08,
+      27,   11,   11,   11, 0x08,
+      57,   11,   11,   11, 0x08,
+      83,   11,   11,   11, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MainWindow[] = {
-    "MainWindow\0\0on_actionNew_Game_triggered()\0"
-    "on_actionTest_triggered()\0"
+    "MainWindow\0\0gamerUpdated()\0"
+    "on_actionNew_Game_triggered()\0"
+    "on_actionTest_triggered()\0updateGamer()\0"
 };
 
 void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -48,8 +53,10 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Q_ASSERT(staticMetaObject.cast(_o));
         MainWindow *_t = static_cast<MainWindow *>(_o);
         switch (_id) {
-        case 0: _t->on_actionNew_Game_triggered(); break;
-        case 1: _t->on_actionTest_triggered(); break;
+        case 0: _t->gamerUpdated(); break;
+        case 1: _t->on_actionNew_Game_triggered(); break;
+        case 2: _t->on_actionTest_triggered(); break;
+        case 3: _t->updateGamer(); break;
         default: ;
         }
     }
@@ -88,10 +95,16 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 4;
     }
     return _id;
+}
+
+// SIGNAL 0
+void MainWindow::gamerUpdated()
+{
+    QMetaObject::activate(this, &staticMetaObject, 0, 0);
 }
 QT_END_MOC_NAMESPACE

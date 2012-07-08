@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QObject>
 
 #include <QtCore>
 #include <QtGui>
@@ -28,6 +29,12 @@ public:
 private slots:
     void on_actionNew_Game_triggered();
     void on_actionTest_triggered();
+    void updateGamer();
+
+public slots:
+
+signals:
+    void gamerUpdated();
 
 private:
     enum keys {
