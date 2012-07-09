@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Sun Jul 8 02:45:18 2012
+** Created: Sun Jul 8 12:32:34 2012
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,31 +23,33 @@ static const uint qt_meta_data_MainWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       8,   14, // methods
+       9,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       3,       // signalCount
+       4,       // signalCount
 
  // signals: signature, parameters, type, tag, flags
       12,   11,   11,   11, 0x05,
       27,   11,   11,   11, 0x05,
       44,   40,   11,   11, 0x05,
+      59,   11,   11,   11, 0x05,
 
  // slots: signature, parameters, type, tag, flags
-      59,   11,   11,   11, 0x08,
-      89,   11,   11,   11, 0x08,
-     115,   11,   11,   11, 0x08,
-     129,   11,   11,   11, 0x08,
-     143,   40,   11,   11, 0x08,
+      71,   11,   11,   11, 0x08,
+     101,   11,   11,   11, 0x08,
+     127,   11,   11,   11, 0x08,
+     141,   11,   11,   11, 0x08,
+     155,   40,   11,   11, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MainWindow[] = {
     "MainWindow\0\0gamerUpdated()\0boxUpdated()\0"
-    "pos\0onSpot(QPoint)\0on_actionNew_Game_triggered()\0"
+    "pos\0onSpot(QPoint)\0nextLevel()\0"
+    "on_actionNew_Game_triggered()\0"
     "on_actionTest_triggered()\0updateGamer()\0"
     "updateBoxes()\0boxOnSpot(QPoint)\0"
 };
@@ -61,11 +63,12 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 0: _t->gamerUpdated(); break;
         case 1: _t->boxUpdated(); break;
         case 2: _t->onSpot((*reinterpret_cast< QPoint(*)>(_a[1]))); break;
-        case 3: _t->on_actionNew_Game_triggered(); break;
-        case 4: _t->on_actionTest_triggered(); break;
-        case 5: _t->updateGamer(); break;
-        case 6: _t->updateBoxes(); break;
-        case 7: _t->boxOnSpot((*reinterpret_cast< QPoint(*)>(_a[1]))); break;
+        case 3: _t->nextLevel(); break;
+        case 4: _t->on_actionNew_Game_triggered(); break;
+        case 5: _t->on_actionTest_triggered(); break;
+        case 6: _t->updateGamer(); break;
+        case 7: _t->updateBoxes(); break;
+        case 8: _t->boxOnSpot((*reinterpret_cast< QPoint(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -103,9 +106,9 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 8)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
+        _id -= 9;
     }
     return _id;
 }
@@ -127,5 +130,11 @@ void MainWindow::onSpot(QPoint _t1)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 2, _a);
+}
+
+// SIGNAL 3
+void MainWindow::nextLevel()
+{
+    QMetaObject::activate(this, &staticMetaObject, 3, 0);
 }
 QT_END_MOC_NAMESPACE

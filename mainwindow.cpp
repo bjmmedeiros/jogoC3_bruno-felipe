@@ -3,7 +3,6 @@
 
 #include <QDebug>
 #include <QRect>
-#include <iostream>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -13,11 +12,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QObject::connect( this, SIGNAL(gamerUpdated()), this, SLOT(updateGamer()) );
     QObject::connect( this, SIGNAL(boxUpdated()), this, SLOT(updateBoxes()) );
+    QObject::connect( this, SIGNAL(nextLevel()), this, SLOT(on_actionNew_Game_triggered()) );
 
     ui->setupUi(this);
 
     ui->scenario->hide();
-    ui->console->hide();
 
     scene = new QGraphicsScene(this);
     ui->scenario->setScene(scene);
@@ -36,7 +35,10 @@ MainWindow::MainWindow(QWidget *parent) :
     border.left = scene->addLine(0,0,0,500,blackpen);
     border.right = scene->addLine(500,0,500,500,blackpen);
 
+    folder = new QDir("maps");
+    mapList = folder->entryList();
 
+    currentLevel = 1;
 }
 
 MainWindow::~MainWindow()
@@ -46,7 +48,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionNew_Game_triggered()
 {
-    m =new Map("maps/test.map");
+    m =new Map(folder->filePath(mapList.at(currentLevel+1)));
     m->scanMap();
     this->drawMap();
     this->drawSpots();
@@ -58,7 +60,8 @@ void MainWindow::on_actionNew_Game_triggered()
 
 void MainWindow::keyPressEvent(QKeyEvent *k)
 {
-    switch(k->nativeVirtualKey()) {
+    switch(k->nativeVirtualKey())
+    {
     case key_left:
         if ( canWalk(key_left, m->gamer) )
         {
@@ -95,6 +98,19 @@ void MainWindow::keyPressEvent(QKeyEvent *k)
         break;
     default:
         break;
+    }
+
+    if ( allBoxesOnSpot() )
+    {
+        if (currentLevel != 3)
+        {
+            currentLevel++;
+            emit this->nextLevel();
+        }
+        else
+        {
+            this->close();
+        }
     }
 }
 
@@ -293,4 +309,17 @@ bool MainWindow::canMoveBox(int direction, Box *current)
     current->setCoord(next->coord.x(), next->coord.y());
     emit this->boxUpdated();
     return true; //its just floor.
+}
+
+bool MainWindow::allBoxesOnSpot()
+{
+    Box *box;
+    foreach(box, m->boxBuffer)
+    {
+        if( !(box->onSpot) )
+        {
+            return false;
+        }
+    }
+    return true;
 }

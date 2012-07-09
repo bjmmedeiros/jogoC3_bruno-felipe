@@ -10,6 +10,8 @@
 #include <QPen>
 #include <QBrush>
 #include <QColor>
+#include <QDir>
+#include <QStringList>
 
 #include "map.h"
 #include "block.h"
@@ -39,6 +41,7 @@ signals:
     void gamerUpdated();
     void boxUpdated();
     void onSpot(QPoint pos);
+    void nextLevel();
 
 private:
     enum keys {
@@ -59,7 +62,6 @@ private:
     Ui::MainWindow *ui;
 
     QGraphicsScene *scene;
-    Block *player;
     wall border;
     Map *m;
 
@@ -72,6 +74,10 @@ private:
     QBrush boxspotbrush;
     QBrush gamerbrush;
 
+    QDir *folder;
+    QStringList mapList;
+    int currentLevel;
+
 private:
     void drawMap();
     void drawSpots();
@@ -79,6 +85,7 @@ private:
     void drawGamer();
     bool canWalk(int direction, Block* block);
     bool canMoveBox(int direction, Box *current);
+    bool allBoxesOnSpot();
 
 protected:
     void keyPressEvent(QKeyEvent *k);

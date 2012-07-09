@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Sun Jul 8 01:12:35 2012
+** Created: Sun Jul 8 11:53:44 2012
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -33,7 +33,6 @@ public:
     QWidget *centralWidget;
     QLabel *gameName;
     QGraphicsView *scenario;
-    QLabel *console;
     QMenuBar *menuBar;
     QMenu *menuPlay;
 
@@ -68,9 +67,6 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(scenario->sizePolicy().hasHeightForWidth());
         scenario->setSizePolicy(sizePolicy);
-        console = new QLabel(centralWidget);
-        console->setObjectName(QString::fromUtf8("console"));
-        console->setGeometry(QRect(90, 60, 251, 181));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -96,7 +92,6 @@ public:
         actionMap_Editor->setText(QApplication::translate("MainWindow", "Map Editor", 0, QApplication::UnicodeUTF8));
         actionTest->setText(QApplication::translate("MainWindow", "Test", 0, QApplication::UnicodeUTF8));
         gameName->setText(QApplication::translate("MainWindow", "Sokoban", 0, QApplication::UnicodeUTF8));
-        console->setText(QApplication::translate("MainWindow", "TextLabel", 0, QApplication::UnicodeUTF8));
         menuPlay->setTitle(QApplication::translate("MainWindow", "Game", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 

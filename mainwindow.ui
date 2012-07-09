@@ -56,19 +56,6 @@
      </sizepolicy>
     </property>
    </widget>
-   <widget class="QLabel" name="console">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>60</y>
-      <width>251</width>
-      <height>181</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
