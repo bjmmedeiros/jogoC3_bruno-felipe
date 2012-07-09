@@ -3,6 +3,8 @@
 
 #include <QDebug>
 #include <QRect>
+#include <QFile>
+#include <QFileDialog>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -25,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->loadSavePanel->hide();
 
     scene = new QGraphicsScene(this);
-    ui->scenario->setScene(scene);
+
 
     blackpen.setColor(Qt::black);
 
@@ -35,11 +37,6 @@ MainWindow::MainWindow(QWidget *parent) :
     spotbrush.setColor(Qt::red); spotbrush.setStyle(Qt::SolidPattern);
     boxspotbrush.setColor(Qt::yellow); boxspotbrush.setStyle(Qt::SolidPattern);
     gamerbrush.setColor(Qt::green); gamerbrush.setStyle(Qt::SolidPattern);
-
-    border.top = scene->addLine(0,0,500,0,blackpen);
-    border.bottom = scene->addLine(0,500,500,500,blackpen);
-    border.left = scene->addLine(0,0,0,500,blackpen);
-    border.right = scene->addLine(500,0,500,500,blackpen);
 
     folder = new QDir("maps");
     mapList = folder->entryList();
@@ -54,6 +51,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionNew_Game_triggered()
 {
+    ui->scenario->setScene(scene);
+
+    border.top = scene->addLine(0,0,500,0,blackpen);
+    border.bottom = scene->addLine(0,500,500,500,blackpen);
+    border.left = scene->addLine(0,0,0,500,blackpen);
+    border.right = scene->addLine(500,0,500,500,blackpen);
+
     moves = 0;
     pushes = 0;
 
@@ -62,7 +66,9 @@ void MainWindow::on_actionNew_Game_triggered()
     ui->label_currentLevel->setText(QString::number(currentLevel));
     ui->label_maxLevel->setText(QString::number(mapList.size()-2));
 
-    m =new Map(folder->filePath(mapList.at(currentLevel+1)));
+    m =new Map();
+    m->openMap(folder->filePath(mapList.at(currentLevel+1)));
+
     m->scanMap();
     this->drawMap();
     this->drawSpots();
@@ -78,73 +84,68 @@ void MainWindow::on_actionNew_Game_triggered()
 
 void MainWindow::keyPressEvent(QKeyEvent *k)
 {
-    switch(k->nativeVirtualKey())
+    if ( ui->actionNew_Game->isEnabled() )
     {
-    case key_left:
-        if ( canWalk(key_left, m->gamer) )
+        switch(k->nativeVirtualKey())
         {
-            m->gamer->coord.setX(m->gamer->coord.x()-1);
-            emit this->gamerUpdated(key_left);
-        }
-        break;
-    case key_right:
-        if ( canWalk(key_right, m->gamer) )
-        {
-            m->gamer->coord.setX(m->gamer->coord.x()+1);
-            emit this->gamerUpdated(key_right);
-        }
-        break;
-    case key_up:
-        if ( canWalk(key_up, m->gamer) )
-        {
-            m->gamer->coord.setY(m->gamer->coord.y()-1);
-            emit this->gamerUpdated(key_up);
-        }
-        break;
-    case key_down:
-        if ( canWalk(key_down, m->gamer) )
-        {
-            m->gamer->coord.setY(m->gamer->coord.y()+1);
-            emit this->gamerUpdated(key_down);
-        }
-        break;
-    case key_esc:
-        this->close();
-        break;
-    case key_enter:
-    case key_backspace:
-        this->on_actionNew_Game_triggered();
-        break;
-    default:
-        break;
-    }
-
-    emit this->hudUpdated();
-
-    if ( allBoxesOnSpot() )
-    {
-        if (currentLevel != mapList.size()-2)
-        {
-            currentLevel++;
-            emit this->nextLevel();
-        }
-        else
-        {
+        case key_left:
+            if ( canWalk(key_left, m->gamer) )
+            {
+                m->gamer->coord.setX(m->gamer->coord.x()-1);
+                emit this->gamerUpdated(key_left);
+            }
+            break;
+        case key_right:
+            if ( canWalk(key_right, m->gamer) )
+            {
+                m->gamer->coord.setX(m->gamer->coord.x()+1);
+                emit this->gamerUpdated(key_right);
+            }
+            break;
+        case key_up:
+            if ( canWalk(key_up, m->gamer) )
+            {
+                m->gamer->coord.setY(m->gamer->coord.y()-1);
+                emit this->gamerUpdated(key_up);
+            }
+            break;
+        case key_down:
+            if ( canWalk(key_down, m->gamer) )
+            {
+                m->gamer->coord.setY(m->gamer->coord.y()+1);
+                emit this->gamerUpdated(key_down);
+            }
+            break;
+        case key_esc:
             this->close();
+            break;
+        case key_enter:
+        case key_backspace:
+            this->on_actionNew_Game_triggered();
+            break;
+        default:
+            break;
+        }
+
+        emit this->hudUpdated();
+
+        if ( allBoxesOnSpot() )
+        {
+            if (currentLevel != mapList.size()-2)
+            {
+                currentLevel++;
+                emit this->nextLevel();
+            }
+            else
+            {
+                this->close();
+            }
         }
     }
 }
 
 void MainWindow::on_actionTest_triggered()
 {
-    m =new Map("maps/test.map");
-    m->testScan();
-    /*
-    for ( int i=0; i<10; i++ )
-    {
-        qDebug() << m->mapBuffer[i][0]->type << m->mapBuffer[i][1]->type << m->mapBuffer[i][2]->type << m->mapBuffer[i][3]->type << m->mapBuffer[i][4]->type << m->mapBuffer[i][5]->type << m->mapBuffer[i][6]->type << m->mapBuffer[i][7]->type << m->mapBuffer[i][8]->type << m->mapBuffer[i][9]->type;
-    }
-    */
 }
 
 void MainWindow::updateGamer(int direction)
@@ -382,4 +383,34 @@ void MainWindow::on_actionMap_Editor_triggered()
     ui->loadSavePanel->show();
     ui->loadSavePanel->move(ui->editorPanel->x(), ui->editorPanel->y()+110);
     ui->editorPanel->move(ui->gameHUD->x(), ui->gameHUD->y());
+
+    ui->actionNew_Game->setDisabled(true);
+
+    ui->scenarioEditor->setScene(scene);
+}
+
+
+void MainWindow::on_loadButton_clicked()
+{
+    QString path;
+    path = QFileDialog::getOpenFileName(this,"Load Map","maps", tr("Map files (*.map);;All files (*.*)"));
+
+    m = new Map();
+    m->openMap(path);
+    m->scanMap();
+    this->drawMap();
+    this->drawSpots();
+    this->drawBoxes();
+    this->drawGamer();
+}
+
+void MainWindow::on_saveButton_clicked()
+{
+    QString path;
+    QString mapName;
+    path = QFileDialog::getSaveFileName(this,"Save Map","maps", tr("Map files (*.map);;All files (*.*)"));
+
+    mapName = path.split("/").last();
+
+    m->createMap(path);
 }

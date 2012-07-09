@@ -12,7 +12,6 @@ class Map: public QObject
     Q_OBJECT
 public:
     Map();
-    Map(QString path);
     ~Map();
 
 private:
@@ -27,7 +26,8 @@ public:
 
 public:
     void scanMap();
-    void testScan();
+    void openMap(QString path);
+    void createMap(QString path);
 
 signals:
 };

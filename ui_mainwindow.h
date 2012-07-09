@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Mon Jul 9 11:45:01 2012
+** Created: Mon Jul 9 12:15:15 2012
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -54,7 +54,7 @@ public:
     QLabel *QtSoko;
     QGraphicsView *scenarioEditor;
     QFrame *loadSavePanel;
-    QPushButton *loadhButton;
+    QPushButton *loadButton;
     QPushButton *saveButton;
     QMenuBar *menuBar;
     QMenu *menuPlay;
@@ -175,9 +175,9 @@ public:
         loadSavePanel->setGeometry(QRect(630, 530, 120, 101));
         loadSavePanel->setFrameShape(QFrame::Panel);
         loadSavePanel->setFrameShadow(QFrame::Raised);
-        loadhButton = new QPushButton(loadSavePanel);
-        loadhButton->setObjectName(QString::fromUtf8("loadhButton"));
-        loadhButton->setGeometry(QRect(10, 10, 91, 33));
+        loadButton = new QPushButton(loadSavePanel);
+        loadButton->setObjectName(QString::fromUtf8("loadButton"));
+        loadButton->setGeometry(QRect(10, 10, 91, 33));
         saveButton = new QPushButton(loadSavePanel);
         saveButton->setObjectName(QString::fromUtf8("saveButton"));
         saveButton->setGeometry(QRect(10, 60, 91, 33));
@@ -220,7 +220,7 @@ public:
         spotButton->setText(QApplication::translate("MainWindow", "Spot", 0, QApplication::UnicodeUTF8));
         gamerButton->setText(QApplication::translate("MainWindow", "Player", 0, QApplication::UnicodeUTF8));
         QtSoko->setText(QApplication::translate("MainWindow", "QtSoko", 0, QApplication::UnicodeUTF8));
-        loadhButton->setText(QApplication::translate("MainWindow", "Load", 0, QApplication::UnicodeUTF8));
+        loadButton->setText(QApplication::translate("MainWindow", "Load", 0, QApplication::UnicodeUTF8));
         saveButton->setText(QApplication::translate("MainWindow", "Save", 0, QApplication::UnicodeUTF8));
         menuPlay->setTitle(QApplication::translate("MainWindow", "Game", 0, QApplication::UnicodeUTF8));
     } // retranslateUi

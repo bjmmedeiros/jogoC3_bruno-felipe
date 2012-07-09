@@ -38,6 +38,10 @@ private slots:
 
     void on_actionMap_Editor_triggered();
 
+    void on_loadButton_clicked();
+
+    void on_saveButton_clicked();
+
 public slots:
 
 signals:
