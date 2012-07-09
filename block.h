@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QGraphicsRectItem>
+#include <QGraphicsPixmapItem>
 
 class Block : public QObject
 {
@@ -26,6 +27,7 @@ public:
     QPoint coord;
     bool movable;
     QGraphicsRectItem *square;
+    QGraphicsPixmapItem * _square;
     int type;
 
     enum dimension {

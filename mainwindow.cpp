@@ -65,6 +65,8 @@ void MainWindow::on_actionNew_Game_triggered()
     this->drawBoxes();
     this->drawGamer();
 
+    ui->actionMap_Editor->setDisabled(true);
+
     ui->scenario->show();
     ui->gameHUD->show();
 }
@@ -142,7 +144,8 @@ void MainWindow::on_actionTest_triggered()
 
 void MainWindow::updateGamer()
 {
-    m->gamer->square->setPos(m->gamer->coord.x()*50, m->gamer->coord.y()*50);
+    //m->gamer->square->setPos(m->gamer->coord.x()*50, m->gamer->coord.y()*50);
+    m->gamer->_square->setPos(m->gamer->coord.x()*50, m->gamer->coord.y()*50);
     this->moves++;
 }
 
@@ -151,14 +154,16 @@ void MainWindow::updateBoxes()
     Box * box;
     foreach(box, m->boxBuffer)
     {
-        box->square->setPos(box->coord.x()*50, box->coord.y()*50);
+        box->_square->setPos(box->coord.x()*50, box->coord.y()*50);
         if ( box->onSpot )
         {
-            box->square->setBrush(boxspotbrush);
+            //box->square->setBrush(boxspotbrush);
+            box->_square->setPixmap(QPixmap("images/boxspot.png"));
         }
         else
         {
-            box->square->setBrush(boxbrush);
+            //box->square->setBrush(boxbrush);
+            box->_square->setPixmap(QPixmap("images/box.png"));
         }
     }
     this->pushes++;
@@ -190,15 +195,15 @@ void MainWindow::drawMap()
         {
             if(m->mapBuffer[j][i]->type == Block::brick)
             {
-                m->mapBuffer[j][i]->square = scene->addRect(0,0,50,50,blackpen,brickbrush);
+                m->mapBuffer[j][i]->_square = scene->addPixmap(QPixmap("images/brick.png"));
             }
 
             else if(m->mapBuffer[j][i]->type == Block::floor)
             {
-                m->mapBuffer[j][i]->square = scene->addRect(0,0,50,50,blackpen,floorbrush);
+                m->mapBuffer[j][i]->_square = scene->addPixmap(QPixmap("images/floor.png"));
             }
 
-            m->mapBuffer[j][i]->square->setPos(j*50,i*50);
+            m->mapBuffer[j][i]->_square->setPos(j*50,i*50);
         }
     }
 }
@@ -207,8 +212,8 @@ void MainWindow::drawSpots()
 {
     for (int i=0; i < (int)m->spotBuffer.size(); i++)
     {
-        m->spotBuffer.at(i)->square = scene->addRect(0,0,50,50,blackpen,spotbrush);
-        m->spotBuffer.at(i)->square->setPos( m->spotBuffer.at(i)->coord.x()*50, m->spotBuffer.at(i)->coord.y()*50 );
+        m->spotBuffer.at(i)->_square = scene->addPixmap(QPixmap("images/spot.png"));
+        m->spotBuffer.at(i)->_square->setPos( m->spotBuffer.at(i)->coord.x()*50, m->spotBuffer.at(i)->coord.y()*50 );
     }
 }
 
@@ -216,15 +221,15 @@ void MainWindow::drawBoxes()
 {
     for (int i=0; i < (int)m->boxBuffer.size(); i++)
     {
-        m->boxBuffer.at(i)->square = scene->addRect(0,0,50,50,blackpen,boxbrush);
-        m->boxBuffer.at(i)->square->setPos( m->boxBuffer.at(i)->coord.x()*50, m->boxBuffer.at(i)->coord.y()*50 );
+        m->boxBuffer.at(i)->_square = scene->addPixmap(QPixmap("images/box.png"));
+        m->boxBuffer.at(i)->_square->setPos( m->boxBuffer.at(i)->coord.x()*50, m->boxBuffer.at(i)->coord.y()*50 );
     }
 }
 
 void MainWindow::drawGamer()
 {
-    m->gamer->square = scene->addRect(0,0,50,50,blackpen,gamerbrush);
-    m->gamer->square->setPos(m->gamer->coord.x()*50, m->gamer->coord.y()*50);
+    m->gamer->_square = scene->addPixmap(QPixmap("images/gamer.png"));
+    m->gamer->_square->setPos(m->gamer->coord.x()*50, m->gamer->coord.y()*50);
 }
 
 bool MainWindow::canWalk(int direction, Block *current)
