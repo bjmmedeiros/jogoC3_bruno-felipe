@@ -42,7 +42,15 @@ private slots:
 
     void on_saveButton_clicked();
 
-public slots:
+    void on_floorButton_clicked();
+
+    void on_brickButton_clicked();
+
+    void on_boxButton_clicked();
+
+    void on_spotButton_clicked();
+
+    void on_gamerButton_clicked();
 
 signals:
     void gamerUpdated(int direction);
@@ -68,6 +76,20 @@ private:
         QGraphicsLineItem *right;
     } wall;
 
+    typedef struct _buttonSet {
+        int button;
+        bool isSet;
+    } buttonSet;
+
+    enum buttons
+    {
+        setFloor=0,
+        setBrick=1,
+        setBox=2,
+        setSpot=3,
+        setGamer=4
+    };
+
     Ui::MainWindow *ui;
 
     QGraphicsScene *scene;
@@ -89,6 +111,9 @@ private:
     int moves;
     int pushes;
 
+    buttonSet bs;
+
+
 private:
     void drawMap();
     void drawSpots();
@@ -97,6 +122,10 @@ private:
     bool canWalk(int direction, Block* block);
     bool canMoveBox(int direction, Box *current);
     bool allBoxesOnSpot();
+
+    bool isGamer(QPoint point);
+    bool isBox(QPoint point);
+    bool isSpot(QPoint point);
 
 protected:
     void keyPressEvent(QKeyEvent *k);

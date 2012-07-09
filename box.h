@@ -8,14 +8,6 @@ class Box: public Block
 public:
     Box(QChar nFace, QChar sFace, QChar eFace, QChar wFace);
 public:
-    enum material
-    {
-        wood='w',
-        metal='m',
-        positive='+',
-        negative='-'
-    };
-
     bool onSpot;
 private:
 
