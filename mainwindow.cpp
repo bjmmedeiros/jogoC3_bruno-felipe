@@ -387,6 +387,15 @@ void MainWindow::on_actionMap_Editor_triggered()
     ui->actionNew_Game->setDisabled(true);
 
     ui->scenarioEditor->setScene(scene);
+
+    m =new Map();
+    m->openMap("templates/square.map");
+
+    m->scanMap();
+    this->drawMap();
+    this->drawSpots();
+    this->drawBoxes();
+    this->drawGamer();
 }
 
 
@@ -397,6 +406,7 @@ void MainWindow::on_loadButton_clicked()
 
     m = new Map();
     m->openMap(path);
+
     m->scanMap();
     this->drawMap();
     this->drawSpots();
@@ -413,4 +423,12 @@ void MainWindow::on_saveButton_clicked()
     mapName = path.split("/").last();
 
     m->createMap(path);
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *e)
+{
+    if ( (e->pos().x() > 60 && e->pos().x() < 560) && (e->pos().y() > 92 && e->pos().y() < 592) )
+    {
+        qDebug() << e->pos().x()-60 << e->pos().y()-92;
+    }
 }

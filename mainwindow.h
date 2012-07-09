@@ -100,6 +100,7 @@ private:
 
 protected:
     void keyPressEvent(QKeyEvent *k);
+    void mousePressEvent(QMouseEvent *e);
 };
 
 #endif // MAINWINDOW_H
