@@ -36,6 +36,8 @@ private slots:
     void boxOnSpot(QPoint pos);
     void updateHUD();
 
+    void on_actionMap_Editor_triggered();
+
 public slots:
 
 signals:

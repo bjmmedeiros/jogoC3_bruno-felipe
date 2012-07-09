@@ -19,6 +19,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->scenario->hide();
     ui->gameHUD->hide();
+    ui->scenarioEditor->hide();
+    ui->editorPanel->hide();
+    ui->QtSoko->hide();
+    ui->loadSavePanel->hide();
 
     scene = new QGraphicsScene(this);
     ui->scenario->setScene(scene);
@@ -67,6 +71,7 @@ void MainWindow::on_actionNew_Game_triggered()
 
     ui->actionMap_Editor->setDisabled(true);
 
+    ui->QtSoko->show();
     ui->scenario->show();
     ui->gameHUD->show();
 }
@@ -363,4 +368,18 @@ bool MainWindow::allBoxesOnSpot()
         }
     }
     return true;
+}
+
+void MainWindow::on_actionMap_Editor_triggered()
+{
+    ui->gameName->hide();
+    ui->scenario->hide();
+    ui->gameHUD->hide();
+
+    ui->scenarioEditor->show();
+    ui->QtSoko->show();
+    ui->editorPanel->show();
+    ui->loadSavePanel->show();
+    ui->loadSavePanel->move(ui->editorPanel->x(), ui->editorPanel->y()+110);
+    ui->editorPanel->move(ui->gameHUD->x(), ui->gameHUD->y());
 }

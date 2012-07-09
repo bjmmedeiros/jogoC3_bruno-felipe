@@ -34,7 +34,10 @@
      <enum>Qt::LeftToRight</enum>
     </property>
     <property name="text">
-     <string>Sokoban</string>
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>images/qtsoko.png</pixmap>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -60,13 +63,13 @@
     <property name="geometry">
      <rect>
       <x>630</x>
-      <y>50</y>
+      <y>70</y>
       <width>120</width>
       <height>160</height>
      </rect>
     </property>
     <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
+     <enum>QFrame::Panel</enum>
     </property>
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
@@ -188,6 +191,184 @@
     <property name="orientation">
      <enum>Qt::Vertical</enum>
     </property>
+   </widget>
+   <widget class="QFrame" name="editorPanel">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>250</y>
+      <width>120</width>
+      <height>271</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Panel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QPushButton" name="floorButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>91</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Floor</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>images/floor.png</normaloff>images/floor.png</iconset>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="brickButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>70</y>
+       <width>91</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Brick</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>images/brick.png</normaloff>images/brick.png</iconset>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="boxButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>120</y>
+       <width>91</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Box</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>images/box.png</normaloff>images/box.png</iconset>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="spotButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>170</y>
+       <width>91</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Spot</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>images/spot.png</normaloff>images/spot.png</iconset>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="gamerButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>220</y>
+       <width>91</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Player</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>images/gamerDOWN.png</normaloff>images/gamerDOWN.png</iconset>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="QtSoko">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>10</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Panel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <property name="text">
+     <string>QtSoko</string>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::AutoText</enum>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="scenarioEditor">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>600</width>
+      <height>600</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QFrame" name="loadSavePanel">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>530</y>
+      <width>120</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Panel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QPushButton" name="loadhButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>91</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Load</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="saveButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>91</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Save</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
