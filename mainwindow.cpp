@@ -13,10 +13,12 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect( this, SIGNAL(gamerUpdated()), this, SLOT(updateGamer()) );
     QObject::connect( this, SIGNAL(boxUpdated()), this, SLOT(updateBoxes()) );
     QObject::connect( this, SIGNAL(nextLevel()), this, SLOT(on_actionNew_Game_triggered()) );
+    QObject::connect( this, SIGNAL(hudUpdated()), this, SLOT(updateHUD()) );
 
     ui->setupUi(this);
 
     ui->scenario->hide();
+    ui->gameHUD->hide();
 
     scene = new QGraphicsScene(this);
     ui->scenario->setScene(scene);
@@ -48,6 +50,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionNew_Game_triggered()
 {
+    moves = 0;
+    pushes = 0;
+
+    ui->moves->setText(QString::number(moves));
+    ui->pushes->setText(QString::number(pushes));
+    ui->label_currentLevel->setText(QString::number(currentLevel));
+    ui->label_maxLevel->setText(QString::number(mapList.size()-2));
+
     m =new Map(folder->filePath(mapList.at(currentLevel+1)));
     m->scanMap();
     this->drawMap();
@@ -56,6 +66,7 @@ void MainWindow::on_actionNew_Game_triggered()
     this->drawGamer();
 
     ui->scenario->show();
+    ui->gameHUD->show();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *k)
@@ -94,15 +105,18 @@ void MainWindow::keyPressEvent(QKeyEvent *k)
         this->close();
         break;
     case key_enter:
-        qDebug() << m->gamer->coord.x() << m->gamer->coord.y();
+    case key_backspace:
+        this->on_actionNew_Game_triggered();
         break;
     default:
         break;
     }
 
+    emit this->hudUpdated();
+
     if ( allBoxesOnSpot() )
     {
-        if (currentLevel != 3)
+        if (currentLevel != mapList.size()-2)
         {
             currentLevel++;
             emit this->nextLevel();
@@ -129,6 +143,7 @@ void MainWindow::on_actionTest_triggered()
 void MainWindow::updateGamer()
 {
     m->gamer->square->setPos(m->gamer->coord.x()*50, m->gamer->coord.y()*50);
+    this->moves++;
 }
 
 void MainWindow::updateBoxes()
@@ -146,6 +161,7 @@ void MainWindow::updateBoxes()
             box->square->setBrush(boxbrush);
         }
     }
+    this->pushes++;
 }
 
 void MainWindow::boxOnSpot(QPoint pos)
@@ -158,6 +174,12 @@ void MainWindow::boxOnSpot(QPoint pos)
             box->square->setBrush(boxspotbrush);
         }
     }
+}
+
+void MainWindow::updateHUD()
+{
+    ui->moves->setText(QString::number(this->moves));
+    ui->pushes->setText(QString::number(this->pushes));
 }
 
 void MainWindow::drawMap()

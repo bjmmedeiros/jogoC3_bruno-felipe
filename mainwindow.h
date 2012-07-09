@@ -34,6 +34,7 @@ private slots:
     void updateGamer();
     void updateBoxes();
     void boxOnSpot(QPoint pos);
+    void updateHUD();
 
 public slots:
 
@@ -42,6 +43,7 @@ signals:
     void boxUpdated();
     void onSpot(QPoint pos);
     void nextLevel();
+    void hudUpdated();
 
 private:
     enum keys {
@@ -50,7 +52,8 @@ private:
         key_right=65363,
         key_down=65364,
         key_enter=65293,
-        key_esc=65307
+        key_esc=65307,
+        key_backspace=65288
     };
     typedef struct _wall {
         QGraphicsLineItem *top;
@@ -77,6 +80,8 @@ private:
     QDir *folder;
     QStringList mapList;
     int currentLevel;
+    int moves;
+    int pushes;
 
 private:
     void drawMap();
