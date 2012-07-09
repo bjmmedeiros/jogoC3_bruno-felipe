@@ -31,7 +31,7 @@ public:
 private slots:
     void on_actionNew_Game_triggered();
     void on_actionTest_triggered();
-    void updateGamer();
+    void updateGamer(int direction);
     void updateBoxes();
     void boxOnSpot(QPoint pos);
     void updateHUD();
@@ -39,7 +39,7 @@ private slots:
 public slots:
 
 signals:
-    void gamerUpdated();
+    void gamerUpdated(int direction);
     void boxUpdated();
     void onSpot(QPoint pos);
     void nextLevel();

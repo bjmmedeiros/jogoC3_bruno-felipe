@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
 
-    QObject::connect( this, SIGNAL(gamerUpdated()), this, SLOT(updateGamer()) );
+    QObject::connect( this, SIGNAL(gamerUpdated(int)), this, SLOT(updateGamer(int)) );
     QObject::connect( this, SIGNAL(boxUpdated()), this, SLOT(updateBoxes()) );
     QObject::connect( this, SIGNAL(nextLevel()), this, SLOT(on_actionNew_Game_triggered()) );
     QObject::connect( this, SIGNAL(hudUpdated()), this, SLOT(updateHUD()) );
@@ -79,28 +79,28 @@ void MainWindow::keyPressEvent(QKeyEvent *k)
         if ( canWalk(key_left, m->gamer) )
         {
             m->gamer->coord.setX(m->gamer->coord.x()-1);
-            emit this->gamerUpdated();
+            emit this->gamerUpdated(key_left);
         }
         break;
     case key_right:
         if ( canWalk(key_right, m->gamer) )
         {
             m->gamer->coord.setX(m->gamer->coord.x()+1);
-            emit this->gamerUpdated();
+            emit this->gamerUpdated(key_right);
         }
         break;
     case key_up:
         if ( canWalk(key_up, m->gamer) )
         {
             m->gamer->coord.setY(m->gamer->coord.y()-1);
-            emit this->gamerUpdated();
+            emit this->gamerUpdated(key_up);
         }
         break;
     case key_down:
         if ( canWalk(key_down, m->gamer) )
         {
             m->gamer->coord.setY(m->gamer->coord.y()+1);
-            emit this->gamerUpdated();
+            emit this->gamerUpdated(key_down);
         }
         break;
     case key_esc:
@@ -142,9 +142,25 @@ void MainWindow::on_actionTest_triggered()
     */
 }
 
-void MainWindow::updateGamer()
+void MainWindow::updateGamer(int direction)
 {
-    //m->gamer->square->setPos(m->gamer->coord.x()*50, m->gamer->coord.y()*50);
+    switch(direction)
+    {
+    case key_left:
+        m->gamer->_square->setPixmap(QPixmap("images/gamerLEFT.png"));
+        break;
+    case key_right:
+        m->gamer->_square->setPixmap(QPixmap("images/gamerRIGHT.png"));
+        break;
+    case key_up:
+        m->gamer->_square->setPixmap(QPixmap("images/gamerUP.png"));
+        break;
+    case key_down:
+        m->gamer->_square->setPixmap(QPixmap("images/gamerDOWN.png"));
+        break;
+    default:
+        break;
+    }
     m->gamer->_square->setPos(m->gamer->coord.x()*50, m->gamer->coord.y()*50);
     this->moves++;
 }
@@ -157,12 +173,10 @@ void MainWindow::updateBoxes()
         box->_square->setPos(box->coord.x()*50, box->coord.y()*50);
         if ( box->onSpot )
         {
-            //box->square->setBrush(boxspotbrush);
             box->_square->setPixmap(QPixmap("images/boxspot.png"));
         }
         else
         {
-            //box->square->setBrush(boxbrush);
             box->_square->setPixmap(QPixmap("images/box.png"));
         }
     }
@@ -228,7 +242,7 @@ void MainWindow::drawBoxes()
 
 void MainWindow::drawGamer()
 {
-    m->gamer->_square = scene->addPixmap(QPixmap("images/gamer.png"));
+    m->gamer->_square = scene->addPixmap(QPixmap("images/gamerDOWN.png"));
     m->gamer->_square->setPos(m->gamer->coord.x()*50, m->gamer->coord.y()*50);
 }
 
