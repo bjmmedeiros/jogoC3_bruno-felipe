@@ -16,6 +16,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect( this, SIGNAL(boxUpdated()), this, SLOT(updateBoxes()) );
     QObject::connect( this, SIGNAL(nextLevel()), this, SLOT(on_actionNew_Game_triggered()) );
     QObject::connect( this, SIGNAL(hudUpdated()), this, SLOT(updateHUD()) );
+    QObject::connect( this, SIGNAL(gamerRemoved()), this, SLOT(removeGamerWarning()) );
+    QObject::connect( this, SIGNAL(gameOver()), this, SLOT(finishGame()) );
 
     ui->setupUi(this);
 
@@ -25,6 +27,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->editorPanel->hide();
     ui->QtSoko->hide();
     ui->loadSavePanel->hide();
+    ui->label_cantRemove->hide();
+    ui->okButton->hide();
+    ui->label_gameOver->hide();
 
     scene = new QGraphicsScene(this);
 
@@ -50,7 +55,7 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::on_actionNew_Game_triggered()
-{
+{   
     ui->scenario->setScene(scene);
 
     border.top = scene->addLine(0,0,500,0,blackpen);
@@ -76,6 +81,8 @@ void MainWindow::on_actionNew_Game_triggered()
     this->drawGamer();
 
     ui->actionMap_Editor->setDisabled(true);
+
+    ui->label_gameOver->hide();
 
     ui->QtSoko->show();
     ui->scenario->show();
@@ -138,7 +145,7 @@ void MainWindow::keyPressEvent(QKeyEvent *k)
             }
             else
             {
-                this->close();
+                emit this->gameOver();
             }
         }
     }
@@ -205,6 +212,18 @@ void MainWindow::updateHUD()
 {
     ui->moves->setText(QString::number(this->moves));
     ui->pushes->setText(QString::number(this->pushes));
+}
+
+void MainWindow::removeGamerWarning()
+{
+    ui->editorPanel->hide();
+    ui->loadSavePanel->hide();
+
+    ui->label_cantRemove->move(ui->editorPanel->x(), ui->editorPanel->y());
+    ui->okButton->move(ui->okButton->x(), ui->loadSavePanel->y());
+
+    ui->label_cantRemove->show();
+    ui->okButton->show();
 }
 
 void MainWindow::drawMap()
@@ -478,7 +497,8 @@ void MainWindow::mousePressEvent(QMouseEvent *e)
 
         if ( isGamer(point) )
         {
-            //delete m->gamer;
+            emit this->gamerRemoved();
+            bs.button = -1; //this avoid from getting into the switch.
             qDebug() << "Is gamer.";
 
         }
@@ -639,4 +659,23 @@ void MainWindow::on_gamerButton_clicked()
     {
         bs.isSet = !bs.isSet;
     }
+}
+
+void MainWindow::on_okButton_clicked()
+{
+    ui->okButton->hide();
+    ui->label_cantRemove->hide();
+
+    ui->editorPanel->show();
+    ui->loadSavePanel->show();
+}
+
+void MainWindow::finishGame()
+{
+    ui->scenario->hide();
+    ui->gameHUD->hide();
+
+    currentLevel = 1;
+
+    ui->label_gameOver->show();
 }

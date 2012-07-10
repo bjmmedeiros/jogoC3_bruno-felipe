@@ -14,13 +14,11 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     block.cpp \
     map.cpp \
-    scenegrid.cpp \
     box.cpp
 
 HEADERS  += mainwindow.h \
     block.h \
     map.h \
-    scenegrid.h \
     box.h
 
 FORMS    += mainwindow.ui

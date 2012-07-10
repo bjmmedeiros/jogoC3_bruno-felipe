@@ -35,22 +35,17 @@ private slots:
     void updateBoxes();
     void boxOnSpot(QPoint pos);
     void updateHUD();
-
+    void removeGamerWarning();
     void on_actionMap_Editor_triggered();
-
     void on_loadButton_clicked();
-
     void on_saveButton_clicked();
-
     void on_floorButton_clicked();
-
     void on_brickButton_clicked();
-
     void on_boxButton_clicked();
-
     void on_spotButton_clicked();
-
     void on_gamerButton_clicked();
+    void on_okButton_clicked();
+    void finishGame();
 
 signals:
     void gamerUpdated(int direction);
@@ -58,6 +53,8 @@ signals:
     void onSpot(QPoint pos);
     void nextLevel();
     void hudUpdated();
+    void gamerRemoved();
+    void gameOver();
 
 private:
     enum keys {

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Mon Jul 9 12:15:15 2012
+** Created: Mon Jul 9 22:17:16 2012
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -56,6 +56,9 @@ public:
     QFrame *loadSavePanel;
     QPushButton *loadButton;
     QPushButton *saveButton;
+    QLabel *label_cantRemove;
+    QPushButton *okButton;
+    QLabel *label_gameOver;
     QMenuBar *menuBar;
     QMenu *menuPlay;
 
@@ -181,6 +184,19 @@ public:
         saveButton = new QPushButton(loadSavePanel);
         saveButton->setObjectName(QString::fromUtf8("saveButton"));
         saveButton->setGeometry(QRect(10, 60, 91, 33));
+        label_cantRemove = new QLabel(centralWidget);
+        label_cantRemove->setObjectName(QString::fromUtf8("label_cantRemove"));
+        label_cantRemove->setGeometry(QRect(520, 580, 121, 141));
+        label_cantRemove->setTextFormat(Qt::AutoText);
+        label_cantRemove->setScaledContents(false);
+        label_cantRemove->setWordWrap(true);
+        okButton = new QPushButton(centralWidget);
+        okButton->setObjectName(QString::fromUtf8("okButton"));
+        okButton->setGeometry(QRect(640, 520, 91, 33));
+        label_gameOver = new QLabel(centralWidget);
+        label_gameOver->setObjectName(QString::fromUtf8("label_gameOver"));
+        label_gameOver->setGeometry(QRect(10, 10, 600, 600));
+        label_gameOver->setPixmap(QPixmap(QString::fromUtf8("images/gameover.png")));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -222,6 +238,9 @@ public:
         QtSoko->setText(QApplication::translate("MainWindow", "QtSoko", 0, QApplication::UnicodeUTF8));
         loadButton->setText(QApplication::translate("MainWindow", "Load", 0, QApplication::UnicodeUTF8));
         saveButton->setText(QApplication::translate("MainWindow", "Save", 0, QApplication::UnicodeUTF8));
+        label_cantRemove->setText(QApplication::translate("MainWindow", "Can't remove player. Put it somewhere else first.", 0, QApplication::UnicodeUTF8));
+        okButton->setText(QApplication::translate("MainWindow", "OK", 0, QApplication::UnicodeUTF8));
+        label_gameOver->setText(QString());
         menuPlay->setTitle(QApplication::translate("MainWindow", "Game", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 

@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Mon Jul 9 20:19:21 2012
+** Created: Mon Jul 9 22:17:24 2012
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,12 +23,12 @@ static const uint qt_meta_data_MainWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      19,   14, // methods
+      24,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       5,       // signalCount
+       7,       // signalCount
 
  // signals: signature, parameters, type, tag, flags
       22,   12,   11,   11, 0x05,
@@ -36,22 +36,27 @@ static const uint qt_meta_data_MainWindow[] = {
       57,   53,   11,   11, 0x05,
       72,   11,   11,   11, 0x05,
       84,   11,   11,   11, 0x05,
+      97,   11,   11,   11, 0x05,
+     112,   11,   11,   11, 0x05,
 
  // slots: signature, parameters, type, tag, flags
-      97,   11,   11,   11, 0x08,
-     127,   11,   11,   11, 0x08,
-     153,   12,   11,   11, 0x08,
-     170,   11,   11,   11, 0x08,
-     184,   53,   11,   11, 0x08,
-     202,   11,   11,   11, 0x08,
-     214,   11,   11,   11, 0x08,
-     246,   11,   11,   11, 0x08,
-     270,   11,   11,   11, 0x08,
-     294,   11,   11,   11, 0x08,
-     319,   11,   11,   11, 0x08,
-     344,   11,   11,   11, 0x08,
-     367,   11,   11,   11, 0x08,
+     123,   11,   11,   11, 0x08,
+     153,   11,   11,   11, 0x08,
+     179,   12,   11,   11, 0x08,
+     196,   11,   11,   11, 0x08,
+     210,   53,   11,   11, 0x08,
+     228,   11,   11,   11, 0x08,
+     240,   11,   11,   11, 0x08,
+     261,   11,   11,   11, 0x08,
+     293,   11,   11,   11, 0x08,
+     317,   11,   11,   11, 0x08,
+     341,   11,   11,   11, 0x08,
+     366,   11,   11,   11, 0x08,
      391,   11,   11,   11, 0x08,
+     414,   11,   11,   11, 0x08,
+     438,   11,   11,   11, 0x08,
+     463,   11,   11,   11, 0x08,
+     485,   11,   11,   11, 0x08,
 
        0        // eod
 };
@@ -59,16 +64,18 @@ static const uint qt_meta_data_MainWindow[] = {
 static const char qt_meta_stringdata_MainWindow[] = {
     "MainWindow\0\0direction\0gamerUpdated(int)\0"
     "boxUpdated()\0pos\0onSpot(QPoint)\0"
-    "nextLevel()\0hudUpdated()\0"
-    "on_actionNew_Game_triggered()\0"
+    "nextLevel()\0hudUpdated()\0gamerRemoved()\0"
+    "gameOver()\0on_actionNew_Game_triggered()\0"
     "on_actionTest_triggered()\0updateGamer(int)\0"
     "updateBoxes()\0boxOnSpot(QPoint)\0"
-    "updateHUD()\0on_actionMap_Editor_triggered()\0"
+    "updateHUD()\0removeGamerWarning()\0"
+    "on_actionMap_Editor_triggered()\0"
     "on_loadButton_clicked()\0on_saveButton_clicked()\0"
     "on_floorButton_clicked()\0"
     "on_brickButton_clicked()\0"
     "on_boxButton_clicked()\0on_spotButton_clicked()\0"
-    "on_gamerButton_clicked()\0"
+    "on_gamerButton_clicked()\0on_okButton_clicked()\0"
+    "finishGame()\0"
 };
 
 void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -82,20 +89,25 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 2: _t->onSpot((*reinterpret_cast< QPoint(*)>(_a[1]))); break;
         case 3: _t->nextLevel(); break;
         case 4: _t->hudUpdated(); break;
-        case 5: _t->on_actionNew_Game_triggered(); break;
-        case 6: _t->on_actionTest_triggered(); break;
-        case 7: _t->updateGamer((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 8: _t->updateBoxes(); break;
-        case 9: _t->boxOnSpot((*reinterpret_cast< QPoint(*)>(_a[1]))); break;
-        case 10: _t->updateHUD(); break;
-        case 11: _t->on_actionMap_Editor_triggered(); break;
-        case 12: _t->on_loadButton_clicked(); break;
-        case 13: _t->on_saveButton_clicked(); break;
-        case 14: _t->on_floorButton_clicked(); break;
-        case 15: _t->on_brickButton_clicked(); break;
-        case 16: _t->on_boxButton_clicked(); break;
-        case 17: _t->on_spotButton_clicked(); break;
-        case 18: _t->on_gamerButton_clicked(); break;
+        case 5: _t->gamerRemoved(); break;
+        case 6: _t->gameOver(); break;
+        case 7: _t->on_actionNew_Game_triggered(); break;
+        case 8: _t->on_actionTest_triggered(); break;
+        case 9: _t->updateGamer((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 10: _t->updateBoxes(); break;
+        case 11: _t->boxOnSpot((*reinterpret_cast< QPoint(*)>(_a[1]))); break;
+        case 12: _t->updateHUD(); break;
+        case 13: _t->removeGamerWarning(); break;
+        case 14: _t->on_actionMap_Editor_triggered(); break;
+        case 15: _t->on_loadButton_clicked(); break;
+        case 16: _t->on_saveButton_clicked(); break;
+        case 17: _t->on_floorButton_clicked(); break;
+        case 18: _t->on_brickButton_clicked(); break;
+        case 19: _t->on_boxButton_clicked(); break;
+        case 20: _t->on_spotButton_clicked(); break;
+        case 21: _t->on_gamerButton_clicked(); break;
+        case 22: _t->on_okButton_clicked(); break;
+        case 23: _t->finishGame(); break;
         default: ;
         }
     }
@@ -133,9 +145,9 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 19)
+        if (_id < 24)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 19;
+        _id -= 24;
     }
     return _id;
 }
@@ -170,5 +182,17 @@ void MainWindow::nextLevel()
 void MainWindow::hudUpdated()
 {
     QMetaObject::activate(this, &staticMetaObject, 4, 0);
+}
+
+// SIGNAL 5
+void MainWindow::gamerRemoved()
+{
+    QMetaObject::activate(this, &staticMetaObject, 5, 0);
+}
+
+// SIGNAL 6
+void MainWindow::gameOver()
+{
+    QMetaObject::activate(this, &staticMetaObject, 6, 0);
 }
 QT_END_MOC_NAMESPACE
